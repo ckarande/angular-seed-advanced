@@ -7,5 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/let';
 
+import 'rxjs/add/observable/of';
+
 // ngrx
 import '@ngrx/core/add/operator/select';

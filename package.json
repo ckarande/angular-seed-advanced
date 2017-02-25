@@ -179,6 +179,7 @@
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.0",
     "@ngrx/store": "^2.2.1",
+    "angular2-sails": "^0.2.2",
     "angulartics2": "^1.6.3",
     "core-js": "^2.4.1",
     "es-module-loader": "^1.0.0",
@@ -186,7 +187,9 @@
     "lodash": "^4.17.4",
     "minimatch": "^3.0.3",
     "ng2-translate": "^5.0.0",
+    "ngrx-domains":"pavlovich/ngrx-domains#0d5f5a3",
     "reflect-metadata": "^0.1.8",
+    "reselect": "^2.5.4",
     "rxjs": "~5.0.3",
     "systemjs": "0.19.41",
     "zone.js": "^0.7.2"

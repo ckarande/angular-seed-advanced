@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateLoader } from 'ng2-translate';
+import {SailsModule} from 'angular2-sails';
 
 // app
 import { APP_COMPONENTS, AppComponent } from './app/components/index';
@@ -70,6 +71,7 @@ export function cons() {
       deps: [Http],
       useFactory: (translateLoaderFactory)
     }]),
+    SailsModule.forRoot(),
     SampleModule,
     StoreModule.provideStore(AppReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
