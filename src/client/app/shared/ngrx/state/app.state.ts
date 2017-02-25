@@ -38,9 +38,8 @@ import { combineReducers } from '@ngrx/store';
  * notation packages up all of the exports into a single object.
  */
 import * as fromMultilingual from '../../i18n/index';
-import { IMultilingualState } from '../../i18n/index';
 import * as fromSample from '../../sample/index';
-import { ISampleState } from '../../sample/index';
+import * as fromRegistry from '../../registry/index';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -49,6 +48,7 @@ import { ISampleState } from '../../sample/index';
 export interface IAppState {
   i18n: fromMultilingual.IMultilingualState;
   sample: fromSample.ISampleState;
+  registry: fromRegistry.IRegistryState;
 };
 
 /**
@@ -60,7 +60,8 @@ export interface IAppState {
  */
 const reducers = {
   i18n: fromMultilingual.reducer,
-  sample: fromSample.reducer
+  sample: fromSample.reducer,
+  registry: fromRegistry.registryReducer
 };
 
 const developmentReducer: ActionReducer<IAppState> = compose(storeFreeze, combineReducers)(reducers);
@@ -74,12 +75,16 @@ export function AppReducer(state: any, action: any) {
   }
 }
 
-export function getMultilingualState(state$: Observable<IAppState>): Observable<IMultilingualState> {
+export function getMultilingualState(state$: Observable<IAppState>): Observable<fromMultilingual.IMultilingualState> {
   return state$.select(s => s.i18n);
 }
-export function getNameListState(state$: Observable<IAppState>): Observable<ISampleState> {
+export function getNameListState(state$: Observable<IAppState>): Observable<fromSample.ISampleState> {
   return state$.select(s => s.sample);
+}
+export function getRegistryState(state$: Observable<IAppState>): Observable<fromRegistry.IRegistryState> {
+  return state$.select(s => s.registry);
 }
 
 export const getLang: any = compose(fromMultilingual.getLang, getMultilingualState);
 export const getNames: any = compose(fromSample.getNames, getNameListState);
+export const getDogs: any = compose(fromRegistry.getDogs, getRegistryState);
