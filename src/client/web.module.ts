@@ -24,6 +24,8 @@ import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/mu
 import { MultilingualEffects } from './app/shared/i18n/index';
 import { SampleModule } from './app/shared/sample/sample.module';
 import { NameListEffects } from './app/shared/sample/index';
+import { RegistryModule } from './app/shared/registry/registry.module';
+import { DogEffects } from './app/shared/registry/index';
 
 // config
 import { Config, WindowService, ConsoleService } from './app/shared/core/index';
@@ -73,10 +75,12 @@ export function cons() {
     }]),
     SailsModule.forRoot(),
     SampleModule,
+    RegistryModule,
     StoreModule.provideStore(AppReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     EffectsModule.run(MultilingualEffects),
-    EffectsModule.run(NameListEffects)
+    EffectsModule.run(NameListEffects),
+    EffectsModule.run(DogEffects)
   ],
   declarations: [
     APP_COMPONENTS

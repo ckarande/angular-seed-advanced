@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/Observable';
 
 // app
 import { RouterExtensions, Config } from '../../shared/core/index';
-import { IAppState, getNames } from '../../shared/ngrx/index';
+import { IAppState, getNames, getDogs } from '../../shared/ngrx/index';
+import { IDogState } from '../../shared/registry/dog/index';
 import * as nameList from '../../shared/sample/index';
 
 @Component({
@@ -18,8 +19,11 @@ export class HomeComponent {
   public names$: Observable<any>;
   public newName: string = '';
 
+  public dogs$: Observable<any>;
+
   constructor(private store: Store<IAppState>, public routerext: RouterExtensions) {
     this.names$ = store.let(getNames);
+    this.dogs$ = store.let(getDogs);
   }
 
   /*
