@@ -26,13 +26,9 @@ export class EntityManager<T extends IEntity> implements IEntityManager<T> {
        this.selected = initialSelected;
    };
 
-    // toJSONValue(){
-    //     return JSON.parse(JSON.stringify(this));
-    // }
-
-    // clone(){
-    //     return new this.__proto__.constructor(this.toJSONValue());
-    // }
+    toJSONValue() {
+        return JSON.parse(JSON.stringify(this));
+    }
 
    updateList(newList: Array<T>): IEntityManager<T> {
        return this.newInstance([...newList], this.selected);
@@ -47,15 +43,15 @@ export class EntityManager<T extends IEntity> implements IEntityManager<T> {
    };
 
    destroy(iItemToDestroy: T) : IEntityManager<T> {
-       return this.newInstance(this.list.filter(item => item.id !== iItemToDestroy.id), this.selected);
+       let newSelected = (this.selected === null || this.selected === undefined || iItemToDestroy.id === this.selected.id) ? null : this.selected;
+       return this.newInstance(this.list.filter(item => item.id !== iItemToDestroy.id), newSelected);
    };
 
    update(itemToUpdate: T) : IEntityManager<T> {
-       return this.newInstance(this.list.map(item => (item.id === itemToUpdate.id) ? Object.assign({}, item, itemToUpdate) : item), this.selected);
+       let newSelected = (this.selected === null || this.selected === undefined) ? null : (itemToUpdate.id === this.selected.id) ? itemToUpdate : this.selected;
+       return this.newInstance(this.list.map(item => (item.id === itemToUpdate.id) ? Object.assign({}, item, itemToUpdate) : item), newSelected);
    };
 
    newInstance(newList: Array<T>, newSelectedItem: T): IEntityManager<T> {
-       return new EntityManager<T>(newList, newSelectedItem);
-   }
-
+       return new this.__proto__.constructor(newList, newSelectedItem);
 };

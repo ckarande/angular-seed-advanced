@@ -27,6 +27,6 @@ export function dogManagerReducer(
 
 }
 
-export function getDogList (s:Observable<IDogManager>) : Observable<Array<IDogState>> {
-  return s.select((s) => s.list); 
+export function getDogList (stream:Observable<IDogManager>) : Observable<Array<IDogState>> {
+  return stream.select((dogManagerInstance) => dogManagerInstance.list); 
 };

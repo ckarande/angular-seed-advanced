@@ -10,6 +10,6 @@ export const registryReducer = combineReducers({
     dogManager: dogManagerReducer
 });
 
-export function getDogManager(state: Observable<IRegistryState>): Observable<IDogManager> {return state.select(s => s.dogManager);}
+export function getDogManager(stream: Observable<IRegistryState>): Observable<IDogManager> {return stream.select(registryInstance => registryInstance.dogManager);}
 
 export const getDogs = compose(getDogList, getDogManager);

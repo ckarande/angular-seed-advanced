@@ -19,7 +19,7 @@ export class HomeComponent {
   public names$: Observable<any>;
   public newName: string = '';
 
-  public dogs$: Observable<any>;
+  public dogs$: Observable<Array<IDogState>>;
 
   constructor(private store: Store<IAppState>, public routerext: RouterExtensions) {
     this.names$ = store.let(getNames);

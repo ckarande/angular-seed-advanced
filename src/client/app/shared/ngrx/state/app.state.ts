@@ -82,7 +82,7 @@ export function getNameListState(state$: Observable<IAppState>): Observable<from
   return state$.select(s => s.sample);
 }
 export function getRegistryState(state$: Observable<IAppState>): Observable<fromRegistry.IRegistryState> {
-  return state$.select(s => s.registry);
+  return state$.select(appState => appState.registry);
 }
 
 export const getLang: any = compose(fromMultilingual.getLang, getMultilingualState);
