@@ -1,5 +1,5 @@
 import { IEntity, Entity } from '../../common/states/index';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 export interface IDogState extends IEntity {
     name: string;

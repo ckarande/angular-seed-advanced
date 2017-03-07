@@ -44,9 +44,9 @@ export class ProjectConfig extends SeedAdvancedConfig {
     let additionalPackages: ExtendPackages[] = [
 
       {
-        name: 'ngrx-registry',
+        name: 'reselect',
         packageMeta: {
-          main: 'index.js',
+          main: 'lib/index.js',
           defaultExtension: 'js'
         }
       },
