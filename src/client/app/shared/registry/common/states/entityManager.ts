@@ -1,6 +1,11 @@
 import { Entity, IEntity } from './entity';
 
+export interface PrototypeObject {
+    constructor(newList: any, newItem: any): void;
+}
+
 export interface IEntityManager<T extends IEntity> {
+    __proto__: PrototypeObject;
     list: Array<T>;
     selected: T;
 
@@ -18,6 +23,7 @@ export interface IEntityManager<T extends IEntity> {
 }
 
 export class EntityManager<T extends IEntity> implements IEntityManager<T> {
+    __proto__: PrototypeObject;
     list: Array<T>;
     selected: T;
 
