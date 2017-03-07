@@ -412,9 +412,6 @@ export class SeedConfig {
       '@angular/platform-browser': 'node_modules/@angular/platform-browser/bundles/platform-browser.umd.js',
       '@angular/platform-browser-dynamic': 'node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
       '@angular/router': 'node_modules/@angular/router/bundles/router.umd.js',
-      'angular2-sails': 'node_modules/angular2-sails/dist/index.js',
-      'traceur': 'node_modules/traceur/bin/traceur.js',
-      'reselect': 'node_modules/reselect/dist/reselect.js',
 
       '@angular/common/testing': 'node_modules/@angular/common/bundles/common-testing.umd.js',
       '@angular/compiler/testing': 'node_modules/@angular/compiler/bundles/compiler-testing.umd.js',
@@ -426,7 +423,6 @@ export class SeedConfig {
       'node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
       '@angular/router/testing': 'node_modules/@angular/router/bundles/router-testing.umd.js',
       '@ngrx/store-devtools': 'node_modules/@ngrx/store-devtools/bundles/store-devtools.umd.js',
-      'ngrx-domains': 'node_modules/ngrx-domains/dist/index.js',
 
       'app/*': '/app/*',
       // For test config

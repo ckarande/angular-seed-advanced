@@ -54,4 +54,5 @@ export class EntityManager<T extends IEntity> implements IEntityManager<T> {
 
    newInstance(newList: Array<T>, newSelectedItem: T): IEntityManager<T> {
        return new this.__proto__.constructor(newList, newSelectedItem);
+   }
 };
