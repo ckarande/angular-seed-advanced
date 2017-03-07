@@ -1,11 +1,11 @@
 import * as _ from 'lodash';
 
-export interface PrototypeObject {
+export interface IPrototypeObject {
     constructor(initialState: any): any;
 };
 
 export interface IEntity {
-    __prototype__?: PrototypeObject;
+    __prototype__?: IPrototypeObject;
     id: number;
     createdAt: Date;
     updatedAt: Date;
