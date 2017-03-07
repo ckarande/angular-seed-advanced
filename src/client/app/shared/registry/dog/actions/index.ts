@@ -1,1 +1,1 @@
-export * from './dog.action';
+import './dog.action';

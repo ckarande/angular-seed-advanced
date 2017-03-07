@@ -1,12 +1,12 @@
-// any operators needed throughout your application
-import './operators';
-
 // libs
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, forwardRef } from '@angular/core';
+import { Registry, Model } from 'ngrx-registry';
 
 // app
-import { AnalyticsService } from '../shared/analytics/index';
-import { Config, LogService, AppService } from '../shared/core/index';
+const AnalyticsService = Registry.services.analytics.AnalyticsService;
+const Config = Registry.classes.core.Config;
+const LogService = Registry.services.core.LogService;
+const AppService = Registry.services.core.AppService;
 
 /**
  * This class represents the main application component.
@@ -18,10 +18,20 @@ import { Config, LogService, AppService } from '../shared/core/index';
 })
 export class AppComponent {
   constructor(
-    public analytics: AnalyticsService,
-    public log: LogService,
-    private appService: AppService
+    @Inject(forwardRef(() => AnalyticsService)) public analytics: Model.analytics.IAnalyticsService,
+    @Inject(forwardRef(() => LogService)) public log: Model.core.ILogService,
+    @Inject(forwardRef(() => AppService)) private appService: Model.core.IAppService
   ) {
     log.debug(`Config env: ${Config.ENVIRONMENT().ENV}`);
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export interface IComponentRegistry {
+      AppComponent: typeof AppComponent;
+    }
+  }
+}
+
+Registry.components.AppComponent = AppComponent;

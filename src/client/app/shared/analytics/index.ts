@@ -1,15 +1,12 @@
+
 // libs
-import { Angulartics2 } from 'angulartics2';
-import { Angulartics2Segment } from 'angulartics2/dist/providers';
+import { Registry } from 'ngrx-registry';
 
-// app
-import { AnalyticsService } from './services/analytics.service';
+Registry.registries.forEach((key) => Registry[key].analytics = {});
+import './domains';
 
-export const ANALYTICS_PROVIDERS: Array<any> = [
-  Angulartics2,
-  Angulartics2Segment,
-  AnalyticsService
-];
+import './services/index';
+import './analytics.module';
 
-// services
-export * from './services/analytics.service';
+export * from './services/index';
+export * from './analytics.module';

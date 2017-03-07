@@ -1,5 +1,8 @@
+// libs
+import { Registry, Model } from 'ngrx-registry';
+
 // app
-import { ILang } from '../../core/index';
+type ILang = Model.core.ILang;
 
 export class DesktopConfig {
 
@@ -12,3 +15,15 @@ export class DesktopConfig {
   ];
 
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace electron {
+      export interface IClassRegistry {
+        DesktopConfig: typeof DesktopConfig;
+      }
+    }
+  }
+}
+
+Registry.classes.electron.DesktopConfig = DesktopConfig;

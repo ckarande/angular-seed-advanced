@@ -4,9 +4,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 // libs
 import { StoreModule } from '@ngrx/store';
+import { Registry, Model } from 'ngrx-registry';
 
 import { t } from '../../test/index';
-import { ILang, WindowService, ConsoleService } from '../../core/index';
+import { WindowService, ConsoleService } from '../../core/index';
+type ILang = Model.core.ILang;
 import { CoreModule } from '../../core/core.module';
 import { AnalyticsModule } from '../../analytics/analytics.module';
 import { MultilingualModule } from '../multilingual.module';

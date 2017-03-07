@@ -1,8 +1,13 @@
+// libs
+import { Registry } from 'ngrx-registry';
+
 // app
-import { ANALYTICS_PROVIDERS } from '../../../analytics/index';
+//const ANALYTICS_PROVIDERS = Registry.providers.analytics.ANALYTICS_PROVIDERS;
+const services = Registry.services.core;
 
 // module
-import { WindowService, ConsoleService, LogService, RouterExtensions, AppService } from '../../index';
+//const WindowService = services.WindowService
+//import { WindowService, ConsoleService, LogService, RouterExtensions, AppService } from '../../index';
 
 // mocks
 import { WindowMock } from '../mocks/window.mock';
@@ -13,12 +18,12 @@ export function TEST_CORE_PROVIDERS(options?: any): Array<any> {
   // window:   = custom window mock (mainly for changing out language)
 
   let providers = [
-    { provide: ConsoleService, useValue: console },
-    { provide: WindowService, useClass: (options && options.window) || WindowMock },
-    LogService,
-    ANALYTICS_PROVIDERS,
-    { provide: RouterExtensions, useClass: RouterExtensionsMock },
-    AppService
+    { provide: services.ConsoleService, useValue: console },
+    { provide: services.WindowService, useClass: (options && options.window) || WindowMock },
+    services.LogService,
+   // ANALYTICS_PROVIDERS,
+    { provide: services.RouterExtensions, useClass: RouterExtensionsMock },
+    services.AppService
   ];
 
   return providers;

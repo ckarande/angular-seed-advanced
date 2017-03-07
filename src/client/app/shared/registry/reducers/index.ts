@@ -1,1 +1,1 @@
-export * from './registry.reducer';
+import './registry.reducer';

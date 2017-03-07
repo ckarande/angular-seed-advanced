@@ -2,12 +2,16 @@
 import { TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
+// libs
+import { Registry, Model } from 'ngrx-registry';
+
 // app
 import { t } from '../../test/index';
 
 // module
-import { PlatformDirective } from './platform.directive';
-import { WindowService } from '../../core/index';
+
+const PlatformDirective = Registry.directives.core.PlatformDirective;
+const WindowService = Registry.services.core.WindowService;
 import { WindowMock } from '../../core/testing/index';
 
 const testModuleConfig = () => {

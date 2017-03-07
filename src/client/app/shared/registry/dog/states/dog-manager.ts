@@ -1,8 +1,25 @@
-import { IDogState } from './dog';
-import { IEntityManager, EntityManager } from '../../common/states/index';
+import { Registry, Model, State } from 'ngrx-registry';
 
-export interface IDogManager extends IEntityManager<IDogState> {};
+declare module 'ngrx-registry' {
+    export namespace Model {
+        export namespace registry {
+            export namespace dog {
+                export interface IClassRegistry {
+                    DogManager: typeof DogManager;
+                }
 
-export class DogManager extends EntityManager<IDogState> {};
+                export interface IObjectRegistry {
+                    initialDogManagerState: Model.registry.dog.IDogManager;
+                }
 
-export const dogsInitialState: IDogManager = new DogManager();
+                export interface IDogManager extends Model.registry.common.IEntityManager<Model.registry.dog.IDogState> {}
+            }
+        }
+    }
+}
+
+class DogManager extends Registry.classes.registry.common.EntityManager<Model.registry.dog.IDogState> {};
+
+Registry.classes.registry.dog.DogManager = DogManager;
+
+Registry.objects.registry.dog.initialDogManagerState = new DogManager();

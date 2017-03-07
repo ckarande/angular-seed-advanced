@@ -1,17 +1,23 @@
-// services
-export * from './services/index';
 
-// components
-export * from './components/index';
+import { State, Registry } from 'ngrx-registry';
 
-// actions
-export * from './actions/index';
+Registry.registries.forEach((key) => Registry[key].i18n = {});
+import './domains';
 
-// effects
-export * from './effects/index';
+import './common/index';
+import './states/index';
+import './actions/index';
+import './services/index';
+import './effects/index';
+import './reducers/index';
+import './components/index';
+import './multilingual.module';
 
-// reducers
-export * from './reducers/index';
-
-// state
+export * from './common/index';
 export * from './states/index';
+export * from './actions/index';
+export * from './services/index';
+export * from './effects/index';
+export * from './reducers/index';
+export * from './components/index';
+export * from './multilingual.module';

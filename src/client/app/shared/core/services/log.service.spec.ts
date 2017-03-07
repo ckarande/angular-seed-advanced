@@ -1,11 +1,14 @@
 // angular
 import { TestBed } from '@angular/core/testing';
-
+import { Registry, Model } from 'ngrx-registry';
 // app
 import { t } from '../../test/index';
 
 // module
-import { Config, ConsoleService, LogService } from '../index';
+
+const Config = Registry.classes.core.Config;
+const ConsoleService = Registry.services.core.ConsoleService;
+const LogService = Registry.services.core.LogService;
 
 const providers: Array<any> = [
   { provide: ConsoleService, useValue: console },
@@ -31,14 +34,14 @@ export function main() {
 
     t.describe('api', () => {
 
-      t.it('sanity', t.inject([LogService], (log: LogService) => {
+      t.it('sanity', t.inject([LogService], (log: Model.core.ILogService) => {
         t.e(log.debug).toBeDefined();
         t.e(log.error).toBeDefined();
         t.e(log.warn).toBeDefined();
         t.e(log.info).toBeDefined();
       }));
 
-      t.it('should not log anything by default', t.inject([LogService], (log: LogService) => {
+      t.it('should not log anything by default', t.inject([LogService], (log: Model.core.ILogService) => {
         log.debug('debug');
         t.e(console.log).not.toHaveBeenCalledWith('debug');
         log.error('error');
@@ -56,7 +59,7 @@ export function main() {
         Config.RESET();
       });
 
-      t.it('LEVEL_4: everything', t.inject([LogService], (log: LogService) => {
+      t.it('LEVEL_4: everything', t.inject([LogService], (log: Model.core.ILogService) => {
         Config.DEBUG.LEVEL_4 = true;
 
         log.debug('debug');
@@ -69,7 +72,7 @@ export function main() {
         t.e(console.info).toHaveBeenCalledWith('info');
       }));
 
-      t.it('LEVEL_3: error only', t.inject([LogService], (log: LogService) => {
+      t.it('LEVEL_3: error only', t.inject([LogService], (log: Model.core.ILogService) => {
         Config.DEBUG.LEVEL_3 = true;
 
         log.debug('debug');
@@ -94,7 +97,7 @@ export function main() {
         t.e(console.info).toHaveBeenCalledWith('info w/level_4');
       }));
 
-      t.it('LEVEL_2: warn only', t.inject([LogService], (log: LogService) => {
+      t.it('LEVEL_2: warn only', t.inject([LogService], (log: Model.core.ILogService) => {
         Config.DEBUG.LEVEL_2 = true;
 
         log.debug('debug');
@@ -107,7 +110,7 @@ export function main() {
         t.e(console.info).not.toHaveBeenCalledWith('info');
       }));
 
-      t.it('LEVEL_1: info only', t.inject([LogService], (log: LogService) => {
+      t.it('LEVEL_1: info only', t.inject([LogService], (log: Model.core.ILogService) => {
         Config.DEBUG.LEVEL_1 = true;
 
         log.debug('debug');

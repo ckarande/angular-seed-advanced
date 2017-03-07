@@ -1,2 +1,1 @@
-// state
-export * from './state/app.state';
+import './state/index';

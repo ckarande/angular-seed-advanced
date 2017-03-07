@@ -8,12 +8,21 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 // libs
 import { Store, StoreModule } from '@ngrx/store';
 import { EffectsTestingModule, EffectsRunner } from '@ngrx/effects/testing';
-
+import { Registry, Model } from 'ngrx-registry';
 // app
+import '../../index';
 import { t } from '../../test/index';
 // import {TEST_CORE_PROVIDERS, GET_HTTP_PROVIDERS_INJECTOR, TEST_LOCATION_PROVIDERS} from '../../core/testing/index';
-import { AnalyticsModule } from '../../analytics/analytics.module';
-import { NameListService, NameListEffects, reducer, InitAction, InitializedAction, AddAction, NameAddedAction } from '../index';
+
+const AnalyticsModule = Registry.modules.analytics.Analytics;
+const NameListService = Registry.services.sample.NameListService;
+const NameListEffects = Registry.effects.sample.NameListEffects;
+const reducer = Registry.reducers.sample.sample;
+const nameActions = Registry.actions.sample;
+const InitAction = nameActions.InitAction;
+const InitializedAction = nameActions.InitializedAction;
+const AddAction = nameActions.AddAction;
+const NameAddedAction = nameActions.NameAddedAction;
 
 // test module configuration for each test
 const testModuleConfig = () => {
@@ -40,10 +49,10 @@ export function main() {
   t.describe('app: NameListService', () => {
     let injector: Injector;
     let backend: MockBackend;
-    let nameList: NameListService;
+    let nameList: Model.sample.INameListService;
     let store: Store<any>;
     let runner: EffectsRunner; // ngrx/effects tester
-    let nameListEffects: NameListEffects;
+    let nameListEffects: Model.sample.INameListEffects;
     let connection: MockConnection; // this will be set when a new connection is emitted from the backend.
 
     t.be(() => {

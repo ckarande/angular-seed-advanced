@@ -1,16 +1,18 @@
 // angular
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 
 // libs
 import { Store, Action } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { SailsService } from 'angular2-sails';
-import { IDogState } from '../states/index';
+
+import { Registry, Model } from 'ngrx-registry';
 
 // module
-import { DogService } from '../services/dog.service';
-import * as actions from '../actions/dog.action';
+const DogService = Registry.services.registry.dog.DogService;
+const DogActionTypes = Registry.actions.registry.dog.TYPES;
+const DogActions = Registry.actions.registry.dog;
 
 @Injectable()
 export class DogEffects {
@@ -20,29 +22,36 @@ export class DogEffects {
    * the effect immediately on startup.
    */
   @Effect() init$: Observable<Action> = this.actions$
-    .ofType(actions.DogActionTypes.INITIALIZE_DOGS)
-    .startWith(new actions.InitializeDogsAction)
+    .ofType(DogActionTypes.INITIALIZE_DOGS)
+    .startWith(new DogActions.InitializeDogsAction)
     .switchMap(() => this.dogService.getDogs())
     .map(dogs => {
-      return new actions.InitializeDogsActionInternal(dogs);
+      return new DogActions.InitializeDogsActionInternal(dogs);
     })
-    .catch((error) => Observable.of(new actions.InitializeDogsActionFailed(error)));
-
-  @Effect() add$: Observable<Action> = this.actions$
-    .ofType(actions.DogActionTypes.CREATE_DOG)
-    .map(action => {
-      let dog: IDogState = action.payload;
-      // analytics
-      this.dogService.track(actions.DogActionTypes._CREATE_DOG, dog);
-      return new actions.CreateDogActionInternal(dog);
-    });
+    .catch((error) => Observable.of(new DogActions.InitializeDogsActionFailed(error)));
 
   constructor(
     private store: Store<any>,
     private actions$: Actions,
-    private dogService: DogService,
+    @Inject(forwardRef(() => DogService)) private dogService: Model.registry.dog.IDogService,
     private _sailsService: SailsService
   ) {
     _sailsService.connect('http://localhost:1338');
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace registry {
+      export namespace dog {
+
+        export interface IEffectRegistry {
+          DogEffects: typeof DogEffects;
+        }
+
+      }
+    }
+  }
+}
+
+Registry.effects.registry.dog.DogEffects = DogEffects;

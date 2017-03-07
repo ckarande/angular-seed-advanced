@@ -1,5 +1,7 @@
-// services
-export * from './services/event.service';
+import {Registry, Model } from 'ngrx-registry';
 
-// utils
-export * from './utils/desktop-config';
+Registry.registries.forEach((key) => Registry[key].electron = {});
+import './domains';
+
+import './services/event.service';
+import './utils/desktop-config';

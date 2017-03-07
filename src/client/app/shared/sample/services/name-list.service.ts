@@ -1,25 +1,36 @@
 // angular
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 import { Http } from '@angular/http';
 
 // libs
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { Registry, Model } from 'ngrx-registry';
 
 // app
-import { Config } from '../../core/index';
-import { Analytics, AnalyticsService } from '../../analytics/index';
-import { CATEGORY } from '../common/category.common';
+const Analytics = Registry.classes.analytics.Analytics;
+const AnalyticsService = Registry.services.analytics.AnalyticsService;
+const Config = Registry.classes.core.Config;
+const CATEGORY = Registry.categories.sample.CATEGORY;
 
 // module
-import { ISampleState } from '../states/index';
-import * as actions from '../actions/name-list.action';
+type ISampleState = Model.sample.IAppState;
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace sample {
+      export interface INameListService extends Model.analytics.IAnalytics {
+        getNames: () => Observable<Array<string>>;
+      }
+    }
+  }
+}
 
 @Injectable()
-export class NameListService extends Analytics {
+export class NameListService extends Analytics implements Model.sample.INameListService {
 
   constructor(
-    public analytics: AnalyticsService,
+    @Inject(forwardRef(() => AnalyticsService)) public analytics: Model.analytics.IAnalyticsService,
     private store: Store<ISampleState>,
     private http: Http
   ) {
@@ -32,3 +43,16 @@ export class NameListService extends Analytics {
       .map(res => res.json());
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace sample {
+      export interface IServiceRegistry {
+        NameListService: typeof NameListService;
+      }
+    }
+  }
+}
+
+Registry.services.sample.NameListService = NameListService;
+Registry.providers.sample.SAMPLE_PROVIDERS.push(NameListService);

@@ -1,40 +1,54 @@
+// libs
 import { Action } from '@ngrx/store';
-import { type } from '../../../core/utils/type';
-import { CATEGORY } from '../common/category.common';
-import { IDogState } from '../states/index';
-import * as SailsResponses from '../../common/states/sailsResponses';
+import { Registry, Model } from 'ngrx-registry';
 
-/**
- * For each action type in an action group, make a simple
- * enum object for all of this group's action types.
- *
- * The 'type' utility function coerces strings into string
- * literal types and runs a simple check to guarantee all
- * action types in the application are unique.
- */
-export interface IDogActions {
-  INITIALIZE_DOGS: string;
-  _INITIALIZE_DOGS: string;
-  DOGS_INITIALIZED: string;
-  INITIALIZE_DOGS_FAILED: string;
+// app
+const type = Registry.classes.core.type;
 
-  CREATE_DOG: string;
-  _CREATE_DOG: string;
-  DOG_CREATED: string;
-  CREATE_DOG_FAILED: string;
+// module
+const CATEGORY = Registry.categories.registry.dog.CATEGORY;
 
-  DESTROY_DOG: string;
-  _DESTROY_DOG: string;
-  DOG_DESTROYED: string;
-  DESTROY_DOG_FAILED: string;
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace registry {
+      export namespace dog {
 
-  UPDATE_DOG: string;
-  _UPDATE_DOG: string;
-  DOG_UPDATED: string;
-  UPDATE_DOG_FAILED: string;
+        /**
+         * For each action type in an action group, make a simple
+         * enum object for all of this group's action types.
+         *
+         * The 'type' utility function coerces strings into string
+         * literal types and runs a simple check to guarantee all
+         * action types in the application are unique.
+         */
+        interface IActions {
+          INITIALIZE_DOGS: string;
+          _INITIALIZE_DOGS: string;
+          DOGS_INITIALIZED: string;
+          INITIALIZE_DOGS_FAILED: string;
+
+          CREATE_DOG: string;
+          _CREATE_DOG: string;
+          DOG_CREATED: string;
+          CREATE_DOG_FAILED: string;
+
+          DESTROY_DOG: string;
+          _DESTROY_DOG: string;
+          DOG_DESTROYED: string;
+          DESTROY_DOG_FAILED: string;
+
+          UPDATE_DOG: string;
+          _UPDATE_DOG: string;
+          DOG_UPDATED: string;
+          UPDATE_DOG_FAILED: string;
+        }
+
+      }
+    }
+  }
 }
 
-export const DogActionTypes: IDogActions = {
+const ActionTypes: Model.registry.dog.IActions = {
   INITIALIZE_DOGS:          type(`${CATEGORY} Initialize Dogs`),
   _INITIALIZE_DOGS:         type(`${CATEGORY} Initialize Dogs (internal)`),
   DOGS_INITIALIZED:         type(`${CATEGORY} Initialized Dogs`),
@@ -64,121 +78,169 @@ export const DogActionTypes: IDogActions = {
  * See Discriminated Unions: https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
  */
 export class InitializeDogsAction implements Action {
-  type = DogActionTypes.INITIALIZE_DOGS;
+  type = ActionTypes.INITIALIZE_DOGS;
   payload = null;
 }
 
 export class InitializeDogsActionInternal implements Action {
-  type = DogActionTypes._INITIALIZE_DOGS;
+  type = ActionTypes._INITIALIZE_DOGS;
 
-  constructor(public payload: Array<IDogState>) { }
+  constructor(public payload: Array<Model.registry.dog.IDogState>) { }
 }
 
 export class DogsInitializedAction implements Action {
-  type = DogActionTypes.DOGS_INITIALIZED;
+  type = ActionTypes.DOGS_INITIALIZED;
 
-  constructor(public payload: Array<IDogState>) { }
+  constructor(public payload: Array<Model.registry.dog.IDogState>) { }
 }
 
 export class InitializeDogsActionFailed implements Action {
-  type = DogActionTypes.INITIALIZE_DOGS_FAILED;
+  type = ActionTypes.INITIALIZE_DOGS_FAILED;
 
   constructor(public payload: any) { }
 }
 
 export class CreateDogAction implements Action {
-  type: string = DogActionTypes.CREATE_DOG;
-  payload: IDogState;
+  type: string = ActionTypes.CREATE_DOG;
+  payload: Model.registry.dog.IDogState;
 
-  constructor( message: SailsResponses.SailsPublishCreateMessage<IDogState>) { 
+  constructor( message: Model.registry.common.SailsPublishCreateMessage<Model.registry.dog.IDogState>) { 
     this.payload = message.data;
   }
 }
 
 export class CreateDogActionInternal implements Action {
-  type = DogActionTypes._CREATE_DOG;
+  type = ActionTypes._CREATE_DOG;
 
-  constructor(public payload: IDogState) { }
+  constructor(public payload: Model.registry.dog.IDogState) { }
 }
 
 export class DogAddedAction implements Action {
-  type = DogActionTypes.DOG_CREATED;
+  type = ActionTypes.DOG_CREATED;
 
-  constructor(public payload: IDogState) { }
+  constructor(public payload: Model.registry.dog.IDogState) { }
 }
 
 export class CreateDogActionFailed implements Action {
-  type = DogActionTypes.CREATE_DOG_FAILED;
+  type = ActionTypes.CREATE_DOG_FAILED;
 
-  constructor(public payload: IDogState) { }
+  constructor(public payload: Model.registry.dog.IDogState) { }
 }
 
 export class DestroyDogAction implements Action {
-  type = DogActionTypes.DESTROY_DOG;
+  type = ActionTypes.DESTROY_DOG;
 
-  constructor(public payload: IDogState) { }
+  constructor(public payload: Model.registry.dog.IDogState) { }
 }
 
 export class DestroyDogActionInternal implements Action {
-  type = DogActionTypes._DESTROY_DOG;
+  type = ActionTypes._DESTROY_DOG;
 
-  constructor(public payload: IDogState) { }
+  constructor(public payload: Model.registry.dog.IDogState) { }
 }
 
 export class DogDestroyedAction implements Action {
-  type = DogActionTypes.DOG_DESTROYED;
+  type = ActionTypes.DOG_DESTROYED;
 
-  constructor(public payload: IDogState) { }
+  constructor(public payload: Model.registry.dog.IDogState) { }
 }
 
 export class DestroyDogActionFailed implements Action {
-  type = DogActionTypes.DESTROY_DOG_FAILED;
+  type = ActionTypes.DESTROY_DOG_FAILED;
 
-  constructor(public payload: IDogState) { }
+  constructor(public payload: Model.registry.dog.IDogState) { }
 }
 
 export class UpdateDogAction implements Action {
-  type = DogActionTypes.UPDATE_DOG;
+  type = ActionTypes.UPDATE_DOG;
 
-  constructor(public payload: IDogState) { }
+  constructor(public payload: Model.registry.dog.IDogState) { }
 }
 
 export class UpdateDogActionInternal implements Action {
-  type = DogActionTypes._UPDATE_DOG;
+  type = ActionTypes._UPDATE_DOG;
 
-  constructor(public payload: IDogState) { }
+  constructor(public payload: Model.registry.dog.IDogState) { }
 }
 
 export class DogUpdatedAction implements Action {
-  type = DogActionTypes.DOG_UPDATED;
+  type = ActionTypes.DOG_UPDATED;
 
-  constructor(public payload: IDogState) { }
+  constructor(public payload: Model.registry.dog.IDogState) { }
 }
 
 export class UpdateDogActionFailed implements Action {
-  type = DogActionTypes.UPDATE_DOG_FAILED;
+  type = ActionTypes.UPDATE_DOG_FAILED;
 
-  constructor(public payload: IDogState) { }
+  constructor(public payload: Model.registry.dog.IDogState) { }
 }
 
-/**
- * Export a type alias of all actions in this action group
- * so that reducers can easily compose action types
- */
-export type DogActions
-  = InitializeDogsAction
-  | InitializeDogsActionInternal
-  | DogsInitializedAction
-  | InitializeDogsActionFailed
-  | CreateDogAction
-  | CreateDogActionInternal
-  | DogAddedAction
-  | CreateDogActionFailed
-  | DestroyDogAction
-  | DestroyDogActionInternal
-  | DogDestroyedAction
-  | DestroyDogActionFailed
-  | UpdateDogAction
-  | UpdateDogActionInternal
-  | DogUpdatedAction
-  | UpdateDogActionFailed;
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace registry {
+      export namespace dog {
+        export interface IActionRegistry {
+          TYPES: typeof ActionTypes;
+          InitializeDogsAction: typeof InitializeDogsAction;
+          InitializeDogsActionInternal: typeof InitializeDogsActionInternal;
+          DogsInitializedAction: typeof DogsInitializedAction;
+          InitializeDogsActionFailed: typeof InitializeDogsActionFailed;
+          CreateDogAction: typeof CreateDogAction;
+          CreateDogActionInternal: typeof CreateDogActionInternal;
+          DogAddedAction: typeof DogAddedAction;
+          CreateDogActionFailed: typeof CreateDogActionFailed;
+          DestroyDogAction: typeof DestroyDogAction;
+          DestroyDogActionInternal: typeof DestroyDogActionInternal;
+          DogDestroyedAction: typeof DestroyDogAction;
+          DestroyDogActionFailed: typeof DestroyDogActionFailed;
+          UpdateDogAction: typeof UpdateDogAction;
+          UpdateDogActionInternal: typeof UpdateDogActionInternal;
+          DogUpdatedAction: typeof DogUpdatedAction;
+          UpdateDogActionFailed: typeof UpdateDogActionFailed;
+        }
+
+      /**
+       * Export a type alias of all actions in this action group
+       * so that reducers can easily compose action types
+       */
+        export type Actions = 
+            InitializeDogsAction
+          | InitializeDogsActionInternal
+          | DogsInitializedAction
+          | InitializeDogsActionFailed
+          | CreateDogAction
+          | CreateDogActionInternal
+          | DogAddedAction
+          | CreateDogActionFailed
+          | DestroyDogAction
+          | DestroyDogActionInternal
+          | DogDestroyedAction
+          | DestroyDogActionFailed
+          | UpdateDogAction
+          | UpdateDogActionInternal
+          | DogUpdatedAction
+          | UpdateDogActionFailed;
+      }
+    }
+  }
+}
+
+Object.assign(Registry.actions.registry.dog, {
+  TYPES: ActionTypes,
+  InitializeDogsAction: InitializeDogsAction,
+  InitializeDogsActionInternal: InitializeDogsActionInternal,
+  DogsInitializedAction: DogsInitializedAction,
+  InitializeDogsActionFailed: InitializeDogsActionFailed,
+  CreateDogAction: CreateDogAction,
+  CreateDogActionInternal: CreateDogActionInternal,
+  DogAddedAction: DogAddedAction,
+  CreateDogActionFailed: CreateDogActionFailed,
+  DestroyDogAction: DestroyDogAction,
+  DestroyDogActionInternal: DestroyDogActionInternal,
+  DogDestroyedAction: DestroyDogAction,
+  DestroyDogActionFailed: DestroyDogActionFailed,
+  UpdateDogAction: UpdateDogAction,
+  UpdateDogActionInternal: UpdateDogActionInternal,
+  DogUpdatedAction: DogUpdatedAction,
+  UpdateDogActionFailed: UpdateDogActionFailed
+});

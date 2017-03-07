@@ -1,17 +1,24 @@
-// app
-import { ConsoleService } from './console.service';
-import { LogService } from './log.service';
-import { RouterExtensions } from './router-extensions.service';
-import { WindowService } from './window.service';
-import { AppService } from './app.service';
+// libs
+import { Registry, Model } from 'ngrx-registry';
+const Services = Registry.services.core;
 
-export const CORE_PROVIDERS: any[] = [
-  AppService,
-  ConsoleService,
-  LogService,
-  RouterExtensions,
-  WindowService
-];
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace core {
+      export interface IProviderRegistry {
+        CORE_PROVIDERS: any[];
+      }
+    }
+  }
+}
+
+Registry.providers.core.CORE_PROVIDERS = [];
+
+import './app.service';
+import './console.service';
+import './log.service';
+import './router-extensions.service';
+import './window.service';
 
 export * from './app.service';
 export * from './console.service';

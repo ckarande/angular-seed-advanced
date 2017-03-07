@@ -49,6 +49,8 @@ module.exports = function (config) {
 
       // Advanced seed
       { pattern: 'node_modules/lodash/**/*.js', included: false, watched: false },
+      { pattern: 'node_modules/ngrx-registry/**/*.js', included: false, watched: false },
+      { pattern: 'node_modules/ngrx-registry/**/*.js.map', included: false, watched: false },
       { pattern: 'node_modules/@ngx-translate/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/@ngrx/**/*.js', included: false, watched: false },
       { pattern: 'node_modules/angulartics2/**/*.js', included: false, watched: false },

@@ -1,1 +1,1 @@
-export * from './dog.effect';
+import './dog.effect';

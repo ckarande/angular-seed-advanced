@@ -1,5 +1,8 @@
+import { Registry, Model } from 'ngrx-registry';
+
 import { Injector, Component } from '@angular/core';
-import { Config } from '../../shared/core/index';
+
+const Config = Registry.classes.core.Config;
 
 @Component({
   moduleId: module.id,
@@ -31,3 +34,13 @@ export class AboutComponent {
     // }
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export interface IComponentRegistry {
+      AboutComponent: typeof AboutComponent;
+    } 
+  }
+}
+
+Registry.components.AboutComponent = AboutComponent;

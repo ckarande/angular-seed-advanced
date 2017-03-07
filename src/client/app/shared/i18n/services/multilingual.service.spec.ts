@@ -5,16 +5,20 @@ import { RouterTestingModule } from '@angular/router/testing';
 // libs
 import { Store, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { Registry, Model } from 'ngrx-registry';
 
 // app
 import { t } from '../../test/index';
 import { CoreModule } from '../../core/core.module';
-import { ILang, WindowService, ConsoleService } from '../../core/index';
+import { WindowService, ConsoleService } from '../../core/index';
+type ILang = Model.core.ILang;
+
 import { TEST_CORE_PROVIDERS, WindowMockFrench } from '../../core/testing/index';
 
 // module
 import { TEST_MULTILINGUAL_PROVIDERS, TEST_MULTILINGUAL_RESET } from '../testing/index';
-import { IMultilingualState, MultilingualService, MultilingualEffects, reducer, ChangeAction } from '../index';
+import { MultilingualService, MultilingualEffects, reducer, ChangeAction } from '../index';
+type IMultilingualState = Model.i18n.IAppState;
 
 // test module configuration for each test
 const testModuleConfig = (options?: any) => {

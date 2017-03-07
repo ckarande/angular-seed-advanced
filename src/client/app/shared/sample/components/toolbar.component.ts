@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject, forwardRef } from '@angular/core';
+import { Registry, Model } from 'ngrx-registry';
 
 // app
-import { LogService } from '../../core/index';
+const LogService = Registry.services.core.LogService;
 
 @Component({
   moduleId: module.id,
@@ -13,9 +14,23 @@ import { LogService } from '../../core/index';
 })
 export class ToolbarComponent {
 
-  constructor(private log: LogService) {}
+  constructor(
+    @Inject(forwardRef(() => LogService)) private log: Model.core.ILogService) {}
 
   public openLanguages(e: any): void {
     this.log.debug('openLanguages');
   }
 }
+
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace sample {
+      export interface IComponentRegistry {
+        ToolbarComponent: typeof ToolbarComponent;
+      }
+    }
+  }
+}
+
+Registry.components.sample.ToolbarComponent = ToolbarComponent;

@@ -1,5 +1,8 @@
+// libs
+import { Registry, Model } from 'ngrx-registry';
+
 // app
-import { ILang } from '../../core/index';
+type ILang = Model.core.ILang;
 
 export class AppConfig {
 
@@ -12,3 +15,15 @@ export class AppConfig {
   ];
 
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace sample {
+      export interface IClassRegistry {
+        AppConfig: typeof AppConfig;
+      }
+    }
+  }
+}
+
+Registry.classes.sample.AppConfig = AppConfig;

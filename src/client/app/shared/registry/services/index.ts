@@ -1,7 +1,14 @@
-import { DogService } from '../dog/services/dog.service';
+// libs
+import { Registry, Model } from 'ngrx-registry';
 
-export const REGISTRY_PROVIDERS: any[] = [
-  DogService
-];
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace registry {
+      export interface IProviderRegistry {
+        REGISTRY_PROVIDERS: any[];
+      }
+    }
+  }
+}
 
-export * from '../dog/services/dog.service';
+Registry.providers.registry.REGISTRY_PROVIDERS = [];

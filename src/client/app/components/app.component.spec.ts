@@ -7,13 +7,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 // libs
 import { StoreModule } from '@ngrx/store';
+import { Registry } from 'ngrx-registry';
 
 // app
+import '../shared/index';
 import { t } from '../shared/test/index';
 import { TEST_CORE_PROVIDERS, TEST_HTTP_PROVIDERS } from '../shared/core/testing/index';
-import { NameListService, NavbarComponent, ToolbarComponent } from '../shared/sample/index';
-import { MultilingualModule } from '../shared/i18n/multilingual.module';
-import { reducer } from '../shared/i18n/index';
+const NameListService = Registry.services.sample.NameListService;
+const NavbarComponent = Registry.components.sample.NavbarComponent;
+const ToolbarComponent = Registry.components.sample.ToolbarComponent;
+const MultilingualModule = Registry.modules.i18n.MultilingualModule;
+const reducer = Registry.reducers.sample.sample;
 
 // module
 import { AppComponent } from './app.component';

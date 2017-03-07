@@ -1,3 +1,15 @@
+import { Registry, Model } from 'ngrx-registry';
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace core {
+      export interface IClassRegistry {
+        type: typeof type;
+      }
+    }
+  }
+}
+
 /**
  * This function coerces a string into a string literal type.
  * Using tagged union types in TypeScript 2.0, this enables
@@ -9,6 +21,7 @@
  */
 
 let typeCache: { [label: string]: boolean } = {};
+
 export function type<T>(label: T | ''): T {
   if (typeCache[<string>label]) {
     throw new Error(`Action type "${label}" is not unqiue"`);
@@ -18,3 +31,5 @@ export function type<T>(label: T | ''): T {
 
   return <T>label;
 }
+
+Registry.classes.core.type = type;

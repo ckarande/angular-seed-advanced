@@ -9,6 +9,9 @@ import { WebModuleNgFactory } from './web.module.ngfactory';
 
 enableProdMode();
 
+// Initialize the app
+import './index';
+
 platformBrowser().bootstrapModuleFactory(WebModuleNgFactory);
 
 // In order to start the Service Worker located at "./worker.js"

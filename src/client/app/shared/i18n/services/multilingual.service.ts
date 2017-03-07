@@ -1,23 +1,30 @@
 // angular
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 
 // libs
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { Registry, Model } from 'ngrx-registry';
 
 // app
-import { Analytics, AnalyticsService } from '../../analytics/index';
-import { ILang } from '../../core/index';
-import { WindowService } from '../../core/services/window.service';
+type ILang = Model.core.ILang;
 
 // module
-import { CATEGORY } from '../common/category.common';
-import { IMultilingualState } from '../states/index';
-import { ChangeAction } from '../actions/index';
+const CATEGORY = Registry.categories.i18n.CATEGORY;
+
+type IMultilingualState = Model.i18n.IAppState;
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace i18n {
+      export interface IMultilingualService extends Model.analytics.IAnalytics {}
+    }
+  }
+}
 
 // service
 @Injectable()
-export class MultilingualService extends Analytics {
+export class MultilingualService extends Registry.classes.analytics.Analytics implements Model.i18n.IMultilingualService {
 
   // default supported languages
   // see web.module.ts for example of how to provide different value
@@ -26,9 +33,9 @@ export class MultilingualService extends Analytics {
   ];
 
   constructor(
-    public analytics: AnalyticsService,
+    @Inject(forwardRef(() => Registry.services.analytics.AnalyticsService)) public analytics: Model.analytics.IAnalyticsService,
     private translate: TranslateService,
-    private win: WindowService,
+    @Inject(forwardRef(() => Registry.services.core.WindowService)) private win: Model.core.IWindow,
     private store: Store<IMultilingualState>
   ) {
     super(analytics);
@@ -47,6 +54,18 @@ export class MultilingualService extends Analytics {
     });
 
     // init the lang
-    this.store.dispatch(new ChangeAction(userLang));
+    this.store.dispatch(new Registry.actions.i18n.ChangeAction(userLang));
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace i18n {
+      export interface IServiceRegistry {
+        MultilingualService: typeof MultilingualService;
+      }
+    }
+  }
+}
+
+Registry.services.i18n.MultilingualService = MultilingualService;

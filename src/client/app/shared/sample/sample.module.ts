@@ -5,10 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+// lib
+import { Registry, Model } from 'ngrx-registry';
+import * as _ from 'lodash';
+
 // app
-import { SAMPLE_COMPONENTS } from './components/index';
-import { SAMPLE_PROVIDERS } from './services/index';
-import { MultilingualModule } from '../i18n/multilingual.module';
+const SAMPLE_COMPONENTS: any[] = _.values(Registry.components.sample);
+const SAMPLE_PROVIDERS: any[] = _.values(Registry.services.sample);
+const MultilingualModule = Registry.modules.i18n.MultilingualModule;
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -45,3 +49,15 @@ export class SampleModule {
     }
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace sample {
+      export interface IModuleRegistry {
+        SampleModule: typeof SampleModule;
+      }
+    }
+  }
+}
+
+Registry.modules.sample.SampleModule = SampleModule;

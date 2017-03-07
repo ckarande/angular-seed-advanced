@@ -1,15 +1,28 @@
-// Feel free to extend this interface
-// depending on your app specific config.
-export interface EnvConfig {
-  API?: string;
-  ENV?: string;
-}
+import { Registry, Model } from 'ngrx-registry';
 
-export interface IPlatforms {
-  WEB: string;
-  MOBILE_NATIVE: string;
-  MOBILE_HYBRID: string;
-  DESKTOP: string;
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace core {
+      // Feel free to extend this interface
+      // depending on your app specific config.
+      export interface EnvConfig {
+        API?: string;
+        ENV?: string;
+      }
+
+      export interface IPlatforms {
+        WEB: string;
+        MOBILE_NATIVE: string;
+        MOBILE_HYBRID: string;
+        DESKTOP: string;
+      }
+
+      export interface IClassRegistry {
+        Config: typeof Config;
+      }
+
+    }
+  }
 }
 
 export class Config {
@@ -24,7 +37,7 @@ export class Config {
   };
 
   // supported platforms
-  public static PLATFORMS: IPlatforms = {
+  public static PLATFORMS: Model.core.IPlatforms = {
     WEB: 'web',
     MOBILE_NATIVE: 'mobile_native',
     MOBILE_HYBRID: 'mobile_hybrid',
@@ -51,7 +64,7 @@ export class Config {
     return Config.PLATFORM_TARGET === Config.PLATFORMS.DESKTOP;
   }
 
-  public static ENVIRONMENT(): EnvConfig {
+  public static ENVIRONMENT(): Model.core.EnvConfig {
     try {
       return JSON.parse('<%= ENV_CONFIG %>');
     } catch (exp) {
@@ -76,3 +89,5 @@ export class Config {
     }
   }
 }
+
+Registry.classes.core.Config = Config;

@@ -1,3 +1,5 @@
+import { Registry } from 'ngrx-registry';
+
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 console.log(`Electron launching with NODE_ENV: ${process.env.NODE_ENV}`);
 
@@ -12,8 +14,10 @@ let mainWindow: any = null;
 let template: any;
 let menu: any;
 
+import './index';
+
 // app
-import { DesktopConfig } from './app/shared/electron/index';
+const DesktopConfig = Registry.classes.electron.DesktopConfig;
 
 // Sample
 // You would need a valid `submitURL` to use

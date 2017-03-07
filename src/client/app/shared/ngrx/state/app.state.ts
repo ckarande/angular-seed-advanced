@@ -40,16 +40,24 @@ import { combineReducers } from '@ngrx/store';
 import * as fromMultilingual from '../../i18n/index';
 import * as fromSample from '../../sample/index';
 import * as fromRegistry from '../../registry/index';
+import { Model, Registry, queryRegistryUtils } from 'ngrx-registry';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
  */
-export interface IAppState {
-  i18n: fromMultilingual.IMultilingualState;
-  sample: fromSample.ISampleState;
-  registry: fromRegistry.IRegistryState;
-};
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace global {
+      export interface IReducerRegistry {
+        //'i18n': (state: Model.i18n.IAppState) => Model.i18n.IAppState;
+        'registry': (state: Model.registry.IAppState) => Model.registry.IAppState;
+        //'sample': (state: Model.sample.IAppState) => Model.sample.IAppState;
+      }
+    }
+  }
+}
 
 /**
  * Because metareducers take a reducer function and return a new reducer,
@@ -59,13 +67,13 @@ export interface IAppState {
  * the result from right to left.
  */
 const reducers = {
-  i18n: fromMultilingual.reducer,
-  sample: fromSample.reducer,
-  registry: fromRegistry.registryReducer
+  i18n: Registry.reducers.i18n.i18n,
+  registry: Registry.reducers.registry.registry,
+  sample: Registry.reducers.sample.sample
 };
 
-const developmentReducer: ActionReducer<IAppState> = compose(storeFreeze, combineReducers)(reducers);
-const productionReducer: ActionReducer<IAppState> = combineReducers(reducers);
+const developmentReducer: ActionReducer<Model.IAppState> = compose(storeFreeze, combineReducers)(reducers);
+const productionReducer: ActionReducer<Model.IAppState> = combineReducers(reducers);
 
 export function AppReducer(state: any, action: any) {
   if (String('<%= BUILD_TYPE %>') === 'dev') {
@@ -75,16 +83,42 @@ export function AppReducer(state: any, action: any) {
   }
 }
 
-export function getMultilingualState(state$: Observable<IAppState>): Observable<fromMultilingual.IMultilingualState> {
-  return state$.select(s => s.i18n);
-}
-export function getNameListState(state$: Observable<IAppState>): Observable<fromSample.ISampleState> {
-  return state$.select(s => s.sample);
-}
-export function getRegistryState(state$: Observable<IAppState>): Observable<fromRegistry.IRegistryState> {
-  return state$.select(appState => appState.registry);
+class AppState implements Model.IAppState {
+  i18n: Model.i18n.IAppState;
+  registry: Model.registry.IAppState;
+  sample: Model.sample.IAppState;
 }
 
-export const getLang: any = compose(fromMultilingual.getLang, getMultilingualState);
-export const getNames: any = compose(fromSample.getNames, getNameListState);
-export const getDogs: any = compose(fromRegistry.getDogs, getRegistryState);
+const getMultilingualState = queryRegistryUtils._createQuery(AppState, 'i18n');
+const getRegistryState = queryRegistryUtils._createQuery(AppState, 'registry');
+const getSampleState = queryRegistryUtils._createQuery(AppState, 'sample');
+
+const getLang = compose(Registry.queries.i18n.selectedLanguage, getMultilingualState);
+const getDogs = compose(Registry.queries.registry.dog.dogManagerList, Registry.queries.registry.dogManager, getRegistryState);
+const getNames = compose(Registry.queries.sample.names, getSampleState);
+
+const globalQueries = {
+  getLang: getLang,
+  getDogs: getDogs,
+  getNames: getNames
+};
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace global {
+      export interface IQueryRegistry {
+        getLang: (stream: Observable<Model.IAppState>) => Observable<string>;
+        getDogs: (stream: Observable<Model.IAppState>) => Observable<Array<Model.registry.dog.IDogState>>;
+        getNames: (stream: Observable<Model.IAppState>) => Observable<Array<string>>;
+      }
+
+      export interface IReducerRegistry {
+        AppReducer: (state: Model.IAppState, action: any) => Model.IAppState;
+      }
+
+    }
+  }
+}
+
+Registry.global.reducers.AppReducer = AppReducer;
+Object.assign(Registry.global.queries, globalQueries);

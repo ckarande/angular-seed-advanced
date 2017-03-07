@@ -1,1 +1,1 @@
-export * from './registry.action';
+import './registry.action';

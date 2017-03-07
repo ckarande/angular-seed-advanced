@@ -1,13 +1,12 @@
 // libs
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, Inject, forwardRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { Registry, Model } from 'ngrx-registry';
 
 // app
-import { RouterExtensions, Config } from '../../shared/core/index';
-import { IAppState, getNames, getDogs } from '../../shared/ngrx/index';
-import { IDogState } from '../../shared/registry/dog/index';
-import * as nameList from '../../shared/sample/index';
+const RouterExtensions = Registry.services.core.RouterExtensions;
+const Config = Registry.classes.core.Config;
 
 @Component({
   moduleId: module.id,
@@ -19,11 +18,13 @@ export class HomeComponent {
   public names$: Observable<any>;
   public newName: string = '';
 
-  public dogs$: Observable<Array<IDogState>>;
+  public dogs$: Observable<Array<Model.registry.dog.IDogState>>;
 
-  constructor(private store: Store<IAppState>, public routerext: RouterExtensions) {
-    this.names$ = store.let(getNames);
-    this.dogs$ = store.let(getDogs);
+  constructor(
+    private store: Store<Model.IAppState>, 
+    @Inject(forwardRef(() => RouterExtensions)) public routerext: Model.core.IRouterExtensions
+  ) {
+    this.dogs$ = store.let(Registry.global.queries.getDogs);
   }
 
   /*
@@ -31,7 +32,7 @@ export class HomeComponent {
    * @returns return false to prevent default form submit behavior to refresh the page.
    */
   addName(): boolean {
-    this.store.dispatch(new nameList.AddAction(this.newName));
+    this.store.dispatch(new Registry.actions.sample.AddAction(this.newName));
     this.newName = '';
     return false;
   }
@@ -47,3 +48,13 @@ export class HomeComponent {
     });
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export interface IComponentRegistry {
+      HomeComponent: typeof HomeComponent;
+    }
+  }
+}
+
+Registry.components.HomeComponent = HomeComponent;

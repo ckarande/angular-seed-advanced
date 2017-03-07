@@ -1,7 +1,19 @@
-import { NameListService } from './name-list.service';
+import { Registry, Model } from 'ngrx-registry';
 
-export const SAMPLE_PROVIDERS: any[] = [
-  NameListService
-];
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace sample {
+      export interface IProviderRegistry {
+        SAMPLE_PROVIDERS: any[];
+      }
+    }
+  }
+}
+
+Registry.providers.sample.SAMPLE_PROVIDERS = [];
+
+import './name-list.service';
+import './app-config';
 
 export * from './name-list.service';
+export * from './app-config';

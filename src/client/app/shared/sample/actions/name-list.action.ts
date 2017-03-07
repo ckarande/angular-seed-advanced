@@ -1,24 +1,38 @@
+// libs
 import { Action } from '@ngrx/store';
-import { type } from '../../core/utils/type';
-import { CATEGORY } from '../common/category.common';
+import { Registry, Model } from 'ngrx-registry';
 
-/**
- * For each action type in an action group, make a simple
- * enum object for all of this group's action types.
- *
- * The 'type' utility function coerces strings into string
- * literal types and runs a simple check to guarantee all
- * action types in the application are unique.
- */
-export interface INameListActions {
-  INIT: string;
-  INITIALIZED: string;
-  INIT_FAILED: string;
-  ADD: string;
-  NAME_ADDED: string;
+// app
+const type = Registry.classes.core.type;
+
+// module
+const CATEGORY = Registry.categories.sample.CATEGORY;
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace sample {
+
+      /**
+       * For each action type in an action group, make a simple
+       * enum object for all of this group's action types.
+       *
+       * The 'type' utility function coerces strings into string
+       * literal types and runs a simple check to guarantee all
+       * action types in the application are unique.
+       */
+      export interface INameListActions {
+        INIT: string;
+        INITIALIZED: string;
+        INIT_FAILED: string;
+        ADD: string;
+        NAME_ADDED: string;
+      }
+
+    }
+  }
 }
 
-export const ActionTypes: INameListActions = {
+export const ActionTypes: Model.sample.INameListActions = {
   INIT:        type(`${CATEGORY} Init`),
   INITIALIZED: type(`${CATEGORY} Initialized`),
   INIT_FAILED: type(`${CATEGORY} Init Failed`),
@@ -61,13 +75,40 @@ export class NameAddedAction implements Action {
   constructor(public payload: string) { }
 }
 
-/**
- * Export a type alias of all actions in this action group
- * so that reducers can easily compose action types
- */
-export type Actions
-  = InitAction
-  | InitializedAction
-  | InitFailedAction
-  | AddAction
-  | NameAddedAction;
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace sample {
+
+      export interface IActionRegistry {
+        TYPES: typeof ActionTypes;
+        InitAction: typeof InitAction;
+        InitializedAction: typeof InitializedAction;
+        InitFailedAction: typeof InitFailedAction;
+        AddAction: typeof AddAction;
+        NameAddedAction: typeof NameAddedAction;
+      }
+
+    /**
+     * Export a type alias of all actions in this action group
+     * so that reducers can easily compose action types
+     */
+      export type Actions
+        = InitAction
+        | InitializedAction
+        | InitFailedAction
+        | AddAction
+        | NameAddedAction;
+
+    }
+  }
+}
+
+Object.assign(Registry.actions.sample, {
+  TYPES: ActionTypes,
+  InitAction: InitAction,
+  InitializedAction: InitializedAction,
+  InitFailedAction: InitFailedAction,
+  AddAction: AddAction,
+  NameAddedAction: NameAddedAction
+});

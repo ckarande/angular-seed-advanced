@@ -1,19 +1,23 @@
-import _ from 'lodash';
+import { Model, Registry } from 'ngrx-registry';
+import * as _ from 'lodash';
 
-export interface PrototypeObject {
-    constructor(initialState: any): any;
-};
+declare module 'ngrx-registry' {
+    export namespace Model {
+        export namespace registry {
+            export namespace common {
+                export interface IEntity {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    equals(other:any): boolean;
+                    notEquals(other:any): boolean;
+                }
+            }
+        }
+    }
+}
 
-export interface IEntity {
-    __prototype__?: PrototypeObject;
-    id: number;
-    createdAt: Date;
-    updatedAt: Date;
-    equals(other:any): boolean;
-    notEquals(other:any): boolean;
-};
-
-export class Entity implements IEntity {
+class Entity implements Model.registry.common.IEntity {
     id: number;
     createdAt: Date;
     updatedAt: Date;
@@ -39,6 +43,20 @@ export class Entity implements IEntity {
     };
 
     constructor(initialState) {
-         Object.assign(this, this.defaultAttributes, _.pick(initialState, this.myAttributes()));
+        Object.assign(this, this.defaultAttributes, _.pick(initialState, this.myAttributes()));
     }
 };
+
+declare module 'ngrx-registry' {
+    export namespace Model {
+        export namespace registry {
+            export namespace common {
+                export interface IClassRegistry {
+                    Entity: typeof Entity;
+                }
+            }
+        }
+    }
+}
+
+Registry.classes.registry.common.Entity = Entity;

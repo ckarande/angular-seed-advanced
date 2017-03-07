@@ -1,14 +1,29 @@
 // angular
 import { Injectable, Inject, forwardRef } from '@angular/core';
 
+// libs
+import { Registry, Model } from 'ngrx-registry';
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace core {
+      export interface ILogService {
+        debug(msg: any): void;
+        error(err: any): void;
+        warn(err: any): void;
+        info(err: any): void;
+      }
+    }
+  }
+}
+
 // module
 import { Config } from '../utils/config';
-import { ConsoleService } from './console.service';
 
 @Injectable()
-export class LogService {
+export class LogService implements Model.core.ILogService {
 
-  constructor(@Inject(forwardRef(() => ConsoleService)) public logger: ConsoleService) {}
+  constructor(@Inject(forwardRef(() => Registry.services.core.ConsoleService)) public logger: Model.core.IConsole) {}
 
   // debug (standard output)
   public debug(msg: any) {
@@ -40,3 +55,17 @@ export class LogService {
   }
 
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace core {
+      export interface IServiceRegistry {
+        LogService: typeof LogService;
+      }
+    }
+  }
+}
+
+Registry.services.core.LogService = LogService;
+
+Registry.providers.core.CORE_PROVIDERS.push(LogService);

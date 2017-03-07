@@ -1,1 +1,1 @@
-export * from './dog.reducer';
+import './dog.reducer';

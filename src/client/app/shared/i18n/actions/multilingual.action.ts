@@ -1,11 +1,12 @@
 // libs
 import { Action } from '@ngrx/store';
+import { Registry } from 'ngrx-registry';
 
 // app
 import { type } from '../../core/utils/type';
 
 // module
-import { CATEGORY } from '../common/category.common';
+const getCategory = () => Registry.categories.i18n.CATEGORY;
 
 /**
  * For each action type in an action group, make a simple
@@ -22,9 +23,9 @@ export interface IMultilingualActions {
 }
 
 export const ActionTypes: IMultilingualActions = {
-  CHANGE:           type(`[${CATEGORY}] Change`),
-  LANG_CHANGED:     type(`[${CATEGORY}] Lang Changed`),
-  LANG_UNSUPPORTED: type(`[${CATEGORY}] Lang Unsupported`)
+  CHANGE:           type(`[${getCategory()}] Change`),
+  LANG_CHANGED:     type(`[${getCategory()}] Lang Changed`),
+  LANG_UNSUPPORTED: type(`[${getCategory()}] Lang Unsupported`)
 };
 
 /**
@@ -56,7 +57,29 @@ export class LangUnsupportedAction implements Action {
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
-export type Actions
+export type _Actions
   = ChangeAction
   | LangChangedAction
   | LangUnsupportedAction;
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace i18n {
+      export interface IActionRegistry {
+        TYPES: typeof ActionTypes;
+        ChangeAction: typeof ChangeAction;
+        LangChangedAction: typeof LangChangedAction;
+        LangUnsupportedAction: typeof LangUnsupportedAction;
+      }
+
+      export type Actions = _Actions;
+    }
+  }
+}
+
+Object.assign(Registry.actions.i18n, {
+  TYPES: ActionTypes,
+  ChangeAction: ChangeAction,
+  LangChangedAction: LangChangedAction,
+  LangUnsupportedAction: LangUnsupportedAction
+});

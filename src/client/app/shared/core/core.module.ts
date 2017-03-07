@@ -5,15 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
-// module
-import { CORE_DIRECTIVES } from './directives/index';
-import { CORE_PROVIDERS } from './services/index';
-import { Config } from './utils/index';
+// libs
+import { Registry, Model } from 'ngrx-registry';
 
-interface ICoreModuleOptions {
-  window?: any;
-  console?: any;
-}
+// module
+const CORE_DIRECTIVES = Registry.directives.core.CORE_DIRECTIVES;
+const CORE_PROVIDERS = Registry.providers.core.CORE_PROVIDERS;
+const Config = Registry.classes.core.Config;
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -53,3 +51,17 @@ export class CoreModule {
     }
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace core {
+
+      export interface IModuleRegistry {
+        Core: typeof CoreModule;
+      }
+
+    }
+  }
+}
+
+Registry.modules.core.Core = CoreModule;

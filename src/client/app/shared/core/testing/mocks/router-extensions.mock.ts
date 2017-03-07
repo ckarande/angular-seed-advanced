@@ -2,8 +2,12 @@
 import { Injectable } from '@angular/core';
 import { UrlTree } from '@angular/router';
 
+// libs
+import { Registry, Model } from 'ngrx-registry';
+
 // module
-import { IRouterExtensions, ExtendedNavigationExtras } from '../../index';
+type IRouterExtensions = Model.core.IRouterExtensions;
+type ExtendedNavigationExtras = Model.core.ExtendedNavigationExtras;
 
 @Injectable()
 export class RouterExtensionsMock implements IRouterExtensions {

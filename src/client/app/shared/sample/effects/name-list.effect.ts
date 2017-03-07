@@ -1,14 +1,26 @@
 // angular
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 
 // libs
 import { Store, Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
+import { Registry, Model } from 'ngrx-registry';
 
 // module
-import { NameListService } from '../services/name-list.service';
 import * as nameList from '../actions/name-list.action';
+const NameListService = Registry.services.sample.NameListService;
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace sample {
+      export interface INameListEffects {
+        init$: Observable<Action>;
+        add$: Observable<Action>;
+      }
+    }
+  }
+}
 
 @Injectable()
 export class NameListEffects {
@@ -40,6 +52,18 @@ export class NameListEffects {
   constructor(
     private store: Store<any>,
     private actions$: Actions,
-    private nameListService: NameListService
+    @Inject(forwardRef(() => NameListService)) private nameListService: Model.sample.INameListService
   ) { }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace sample {
+      export interface IEffectRegistry {
+        NameListEffects: typeof NameListEffects;
+      }
+    }
+  }
+}
+
+Registry.effects.sample.NameListEffects = NameListEffects;

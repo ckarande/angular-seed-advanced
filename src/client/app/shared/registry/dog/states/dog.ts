@@ -1,14 +1,21 @@
-import { IEntity, Entity } from '../../common/states/index';
-import _ from 'lodash';
+import { Model, Registry } from 'ngrx-registry';
 
-export interface IDogState extends IEntity {
-    name: string;
-    sex: string;
-    color: string;
-    altered: boolean;
-};
+declare module 'ngrx-registry' {
+    export namespace Model {
+        export namespace registry {
+            export namespace dog {
+                export interface IDogState extends Model.registry.common.IEntity {
+                    name: string;
+                    sex: string;
+                    color: string;
+                    altered: boolean;
+                }
+            }
+        }
+    }
+}
 
-export class Dog extends Entity implements IDogState {
+export class Dog extends Registry.classes.registry.common.Entity implements Model.registry.dog.IDogState {
     name: string;
     sex: string;
     color: string;
@@ -28,4 +35,18 @@ export class Dog extends Entity implements IDogState {
         super(initialValues);
     };
 
+};
+
+declare module 'ngrx-registry' {
+    export namespace Model {
+        export namespace registry {
+            export namespace dog {
+                interface IClassRegistry {
+                    Dog: typeof Dog;
+                }
+            }
+        }
+    }
 }
+
+Registry.classes.registry.dog.Dog = Dog;

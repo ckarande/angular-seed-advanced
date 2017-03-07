@@ -2,30 +2,35 @@ import { Action } from '@ngrx/store';
 import { type } from '../../core/utils/type';
 import { CATEGORY } from '../common/category.common';
 
-/**
- * For each action type in an action group, make a simple
- * enum object for all of this group's action types.
- *
- * The 'type' utility function coerces strings into string
- * literal types and runs a simple check to guarantee all
- * action types in the application are unique.
- */
-export interface INameListActions {
-  INIT: string;
-  INITIALIZED: string;
-  INIT_FAILED: string;
-  ADD: string;
-  NAME_ADDED: string;
-  BLAH: string;
+import { Registry, Model } from 'ngrx-registry';
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace registry {
+      
+      /**
+       * For each action type in an action group, make a simple
+       * enum object for all of this group's action types.
+       *
+       * The 'type' utility function coerces strings into string
+       * literal types and runs a simple check to guarantee all
+       * action types in the application are unique.
+       */
+      interface IActions {
+        INITIALIZE_REGISTRY: string;
+        _INITIALIZE_REGISTRY: string;
+        REGISTRY_INITIALIZED: string;
+        INITIALIZE_REGISTRY_FAILED: string;
+      }
+    }
+  }
 }
 
-export const ActionTypes: INameListActions = {
-  INIT:        type(`${CATEGORY} Init`),
-  INITIALIZED: type(`${CATEGORY} Initialized`),
-  INIT_FAILED: type(`${CATEGORY} Init Failed`),
-  ADD:         type(`${CATEGORY} Add`),
-  NAME_ADDED:  type(`${CATEGORY} Name Added`),
-  BLAH:        type(`${CATEGORY} Blah`)
+const ActionTypes: Model.registry.IActions = {
+  INITIALIZE_REGISTRY:          type(`${CATEGORY} Initialize Registry`),
+  _INITIALIZE_REGISTRY:         type(`${CATEGORY} Initialize Registry (internal)`),
+  REGISTRY_INITIALIZED:         type(`${CATEGORY} Initialized Registry`),
+  INITIALIZE_REGISTRY_FAILED:   type(`${CATEGORY} Initialize Registry Failed`),
 };
 
 /**
@@ -35,48 +40,55 @@ export const ActionTypes: INameListActions = {
  *
  * See Discriminated Unions: https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
  */
-export class InitAction implements Action {
-  type = ActionTypes.INIT;
-  payload: string = null;
+export class InitializeRegistryAction implements Action {
+  type = ActionTypes.INITIALIZE_REGISTRY;
+  payload = null;
 }
 
-export class InitializedAction implements Action {
-  type = ActionTypes.INITIALIZED;
-
-  constructor(public payload: Array<string>) { }
+export class InitializeRegistryActionInternal implements Action {
+  type = ActionTypes._INITIALIZE_REGISTRY;
+  payload = null;
 }
 
-export class InitFailedAction implements Action {
-  type = ActionTypes.INIT_FAILED;
-  payload: string = null;
+export class RegistryInitializedAction implements Action {
+  type = ActionTypes.REGISTRY_INITIALIZED;
+  payload = null;
 }
 
-export class AddAction implements Action {
-  type = ActionTypes.ADD;
-
-  constructor(public payload: string) { }
+export class InitializeRegistryActionFailed implements Action {
+  type = ActionTypes.INITIALIZE_REGISTRY_FAILED;
+  payload = null;
 }
 
-export class NameAddedAction implements Action {
-  type = ActionTypes.NAME_ADDED;
 
-  constructor(public payload: string) { }
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace registry {
+      interface IActionRegistry {      
+          TYPES: typeof ActionTypes;
+          InitializeRegistryAction: typeof InitializeRegistryAction;
+          InitializeRegistryActionInternal: typeof InitializeRegistryActionInternal;
+          RegistryInitializedAction: typeof RegistryInitializedAction;
+          InitializeRegistryActionFailed: typeof InitializeRegistryActionFailed;
+      }
+
+    /**
+     * Export a type alias of all actions in this action group
+     * so that reducers can easily compose action types
+     */
+      export type Actions =
+          InitializeRegistryAction
+        | InitializeRegistryActionInternal
+        | RegistryInitializedAction
+        | InitializeRegistryActionFailed;
+    }
+  } 
 }
 
-export class BlahAction implements Action {
-  type = ActionTypes.BLAH;
-
-  constructor(public payload: string) { }
-}
-
-/**
- * Export a type alias of all actions in this action group
- * so that reducers can easily compose action types
- */
-export type Actions
-  = InitAction
-  | InitializedAction
-  | InitFailedAction
-  | AddAction
-  | NameAddedAction
-  | BlahAction;
+Object.assign(Registry.actions.registry, {
+    TYPES: ActionTypes,
+    InitializeRegistryAction: InitializeRegistryAction,
+    InitializeRegistryActionInternal: InitializeRegistryActionInternal,
+    RegistryInitializedAction: RegistryInitializedAction,
+    InitializeRegistryActionFailed: InitializeRegistryActionFailed
+  });

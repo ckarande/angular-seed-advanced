@@ -8,17 +8,17 @@ import { HttpModule, Http } from '@angular/http';
 // libs
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { Registry, Model } from 'ngrx-registry';
 
 // app
-import { Config } from '../core/index';
 
 // module
-import { LangSwitcherComponent } from './components/index';
-import { MultilingualService } from './services/index';
+const LangSwitcherComponent = Registry.components.i18n.LangSwitcherComponent;
+const MultilingualService = Registry.services.i18n.MultilingualService;
 
 // for AoT compilation
 export function translateLoaderFactory(http: Http) {
-  return new TranslateHttpLoader(http, `${Config.IS_MOBILE_NATIVE() ? '/' : ''}assets/i18n/`, '.json');
+  return new TranslateHttpLoader(http, `${Registry.classes.core.Config.IS_MOBILE_NATIVE() ? '/' : ''}assets/i18n/`, '.json');
 };
 
 /**
@@ -69,3 +69,20 @@ export class MultilingualModule {
     }
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace i18n {
+      export interface IModuleRegistry {
+        MultilingualModule: typeof MultilingualModule;
+      }
+
+      export interface IClassRegistry {
+        translateLoaderFactory: (http: Http) => TranslateHttpLoader;
+      }
+    }
+  }
+}
+
+Registry.modules.i18n.MultilingualModule = MultilingualModule;
+Registry.classes.i18n.translateLoaderFactory = translateLoaderFactory;

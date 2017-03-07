@@ -1,8 +1,9 @@
 // libs
 import { TranslateService, TranslateLoader } from '@ngx-translate/core';
+import { Registry } from 'ngrx-registry';
 
 // module
-import { MultilingualService } from '../index';
+const MultilingualService = Registry.services.i18n.MultilingualService;
 
 // mocks
 import { TranslateMock } from './mocks/ng2-translate.mock';

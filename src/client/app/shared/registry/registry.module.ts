@@ -5,9 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+// libs
+import { Registry, Model } from 'ngrx-registry';
+
 // app
-//import { REGISTRY_COMPONENTS } from './components/index';
-import { REGISTRY_PROVIDERS } from './services/index';
+//const REGISTRY_COMPONENTS = Registry.components.registry.REGISTRY_COMPONENTS;
+const REGISTRY_PROVIDERS = Registry.providers.registry.REGISTRY_PROVIDERS;
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -35,10 +38,21 @@ import { REGISTRY_PROVIDERS } from './services/index';
   ]
 })
 export class RegistryModule {
-
   constructor(@Optional() @SkipSelf() parentModule: RegistryModule) {
     if (parentModule) {
       throw new Error('RegistryModule already loaded; Import in root module only.');
     }
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace registry {
+      export interface IModuleRegistry {
+        Registry: typeof RegistryModule;
+      }
+    }
+  }
+}
+
+Registry.modules.registry.Registry = RegistryModule;

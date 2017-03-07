@@ -1,57 +1,76 @@
 // angular
-import { Injectable,  OnInit} from '@angular/core';
-import { Http } from '@angular/http';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 
 // libs
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/Rx';
 import { SailsService } from 'angular2-sails';
 
+import { Model, Registry } from 'ngrx-registry';
+
 // app
-//import { Config } from '../../core/index';
-import { SailsMultiResponse } from '../../common/states/sailsResponses';
-import { Analytics, AnalyticsService } from '../../../analytics/index';
-import { CATEGORY } from '../common/category.common';
+const Analytics = Registry.classes.analytics.Analytics;
+const AnalyticsService = Registry.services.analytics.AnalyticsService;
 
 // module
-import { IDogState } from '../states/index';
-import { IRegistryState } from '../../states/index';
-import * as actions from '../actions/dog.action';
-import * as sailsResponses from '../../common/states/sailsResponses';
+const CATEGORY = Registry.categories.registry.dog.CATEGORY;
+
+type ActionTypes = Model.registry.dog.Actions;
+type DogState = Model.registry.dog.IDogState;
+type State = Model.registry.IAppState;
+
+type DestroyMessage = Model.registry.common.SailsPublishDestroyMessage<DogState>;
+type CreateMessage = Model.registry.common.SailsPublishCreateMessage<DogState>;
+type UpdateMessage = Model.registry.common.SailsPublishUpdateMessage<DogState>;
+type SailsMessage = Model.registry.common.SailsPublishMessages<DogState>;
+
+const Actions = Registry.actions.registry.dog;
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace registry {
+      export namespace dog {
+
+        export interface IDogService {
+          getDogs:() => Observable<Array<Model.registry.dog.IDogState>>;
+        }
+
+      }
+    }
+  }
+}
 
 @Injectable()
-export class DogService extends Analytics {
+export class DogService extends Analytics implements Model.registry.dog.IDogService {
 
   constructor(
-    public analytics: AnalyticsService,
-    private store: Store<IRegistryState>,
+    @Inject(forwardRef(() => AnalyticsService)) public analytics: Model.analytics.IAnalyticsService,
+    private store: Store<State>,
     private sails: SailsService
   ) {
     super(analytics);
     this.category = CATEGORY;
   }
 
-  getDogs(): Observable<Array<IDogState>> {
+  getDogs(): Observable<Array<DogState>> {
 
     return this.sails
       .get('/dog')
       .map(result => {
         this.sails.on('dog').subscribe(
-          (dogEvent: sailsResponses.SailsPublishMessages<IDogState>) => {
-          
-            switch (dogEvent.verb){
+          (dogEvent: SailsMessage) => {
+            switch (dogEvent.verb) {
               case 'created':
-                let createMessage: sailsResponses.SailsPublishCreateMessage<IDogState> = <sailsResponses.SailsPublishCreateMessage<IDogState>>dogEvent;
-                this.store.dispatch(new actions.CreateDogActionInternal(createMessage.data));
+                let createMessage: CreateMessage = <CreateMessage>dogEvent;
+                this.store.dispatch(new Actions.CreateDogActionInternal(createMessage.data));
                 break;
               case 'destroyed':
-                let destroyMessage: sailsResponses.SailsPublishDestroyMessage<IDogState> = <sailsResponses.SailsPublishDestroyMessage<IDogState>>dogEvent;
-                this.store.dispatch(new actions.DestroyDogActionInternal(destroyMessage.previous));
+                let destroyMessage: DestroyMessage = <DestroyMessage>dogEvent;
+                this.store.dispatch(new Actions.DestroyDogActionInternal(destroyMessage.previous));
                 break;
               case 'updated':
-                let updateMessage: sailsResponses.SailsPublishUpdateMessage<IDogState> = <sailsResponses.SailsPublishUpdateMessage<IDogState>>dogEvent; 
-                this.store.dispatch(new actions.UpdateDogActionInternal(updateMessage.data));
+                let updateMessage: UpdateMessage = <UpdateMessage>dogEvent; 
+                this.store.dispatch(new Actions.UpdateDogActionInternal(updateMessage.data));
                 break;
               default:
               console.log('getDogs: socket monitoring: Unknown type of socket event: ', dogEvent);
@@ -66,3 +85,21 @@ export class DogService extends Analytics {
 
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace registry {
+      export namespace dog {
+
+        export interface IServiceRegistry {
+          DogService: typeof DogService;
+        }
+
+      }
+    }
+  }
+}
+
+Registry.services.registry.dog.DogService = DogService;
+Registry.providers.registry.dog.DOG_PROVIDERS.push(DogService);
+Registry.providers.registry.REGISTRY_PROVIDERS.push(DogService);

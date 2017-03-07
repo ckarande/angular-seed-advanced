@@ -1,32 +1,52 @@
 import { Observable } from 'rxjs/Observable';
-import { IDogManager, DogManager, IDogState, dogsInitialState } from '../states/index';
-import { IRegistryState } from '../../states/registry.state';
-import * as actions from '../actions/dog.action';
-import { Action } from '@ngrx/store';
+import { Model, Registry, queryRegistryUtils } from 'ngrx-registry';
+
+const DogActionTypes = Registry.actions.registry.dog.TYPES;
+const DogClasses = Registry.classes.registry.dog;
+type IDogManager = Model.registry.dog.IDogManager;
+type IDogState = Model.registry.dog.IDogState;
+type Actions = Model.registry.dog.Actions;
 
 export function dogManagerReducer(
-    state: IDogManager = new DogManager(),
-    action: actions.DogActions
+    state: IDogManager = new DogClasses.DogManager(),
+    action: Actions
 ): IDogManager {
   switch (action.type) {
-    case actions.DogActionTypes._INITIALIZE_DOGS:
+    case DogActionTypes._INITIALIZE_DOGS:
       return state.updateList(action.payload);
     
-    case actions.DogActionTypes._CREATE_DOG:
+    case DogActionTypes._CREATE_DOG:
       return state.add(action.payload);
 
-    case actions.DogActionTypes._DESTROY_DOG:
+    case DogActionTypes._DESTROY_DOG:
       return state.destroy(action.payload);
 
-    case actions.DogActionTypes._UPDATE_DOG:
+    case DogActionTypes._UPDATE_DOG:
       return state.update(action.payload);
 
     default:
       return state;
   }
-
 }
 
-export function getDogList (stream:Observable<IDogManager>) : Observable<Array<IDogState>> {
-  return stream.select((dogManagerInstance) => dogManagerInstance.list); 
-};
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace registry {
+      export namespace dog {
+        export interface IQueryRegistry {
+          dogManagerSelected: (stream: Observable<IDogManager>) => Observable<IDogState>;
+          dogManagerList: (stream: Observable<IDogManager>) => Observable<Array<IDogState>>;
+        }
+
+        export interface IReducerRegistry {
+          'dogManager': (state: IDogManager, action: Actions) => IDogManager;
+        }
+      }
+    }
+  }
+}
+
+Registry.queries.registry.dog.dogManagerSelected = queryRegistryUtils._createQuery(DogClasses.DogManager, 'selected');
+Registry.queries.registry.dog.dogManagerList = queryRegistryUtils._createQuery(DogClasses.DogManager, 'list');
+
+Registry.reducers.registry.dog.dogManager = dogManagerReducer;

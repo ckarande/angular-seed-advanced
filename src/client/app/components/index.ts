@@ -1,13 +1,21 @@
-import { AppComponent } from './app.component';
-import { AboutComponent } from './about/about.component';
-import { HomeComponent } from './home/home.component';
+// libs
+// any operators needed throughout your application
+import './operators';
+import { Registry, Model } from 'ngrx-registry';
 
-export const APP_COMPONENTS: any[] = [
-  AppComponent,
-  AboutComponent,
-  HomeComponent
-];
+import './app.component';
+import './about/index';
+import './home/index';
 
-export * from './app.component';
-export * from './about/about.component';
-export * from './home/home.component';
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export interface IComponentRegistry {
+      APP_COMPONENTS: any[];
+    }
+  }
+}
+
+const AppComponent = Registry.components.AppComponent;
+const AboutComponent = Registry.components.AboutComponent;
+const HomeComponent = Registry.components.HomeComponent;
+Registry.components.APP_COMPONENTS = [AppComponent, AboutComponent, HomeComponent];

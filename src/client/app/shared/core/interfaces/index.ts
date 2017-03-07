@@ -1,3 +1,3 @@
-export * from './iconsole';
+import './ilang';
+
 export * from './ilang';
-export * from './iwindow';

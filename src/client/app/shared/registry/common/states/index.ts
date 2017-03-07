@@ -1,3 +1,5 @@
-export * from './entity';
-export * from './entityManager';
-export * from './sailsResponses';
+import 'ngrx-registry';
+
+import './entity';
+import './entityManager';
+import './sailsResponses';

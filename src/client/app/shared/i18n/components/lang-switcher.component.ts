@@ -1,13 +1,16 @@
 // libs
-import { Component } from '@angular/core';
+import { Component, Inject, forwardRef } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Registry, Model } from 'ngrx-registry';
 
 // app
-import { Config, ILang } from '../../core/index';
-import { LogService } from '../../core/services/log.service';
-import { IAppState } from '../../ngrx/index';
-import { ElectronEventService } from '../../electron/index';
-import * as multilingual from '../index';
+const Config = Registry.classes.core.Config;
+type ILang = Model.core.ILang;
+const LogService = Registry.services.core.LogService;
+type IAppState = Model.IAppState;
+const MultilingualActions = Registry.actions.i18n;
+const MultilingualService = Registry.services.i18n.MultilingualService;
+const ElectronEventService = Registry.classes.electron.ElectronEventService;
 
 @Component({
   moduleId: module.id,
@@ -18,9 +21,12 @@ import * as multilingual from '../index';
 export class LangSwitcherComponent {
 
   public lang: string;
-  public supportedLanguages: Array<ILang> = multilingual.MultilingualService.SUPPORTED_LANGUAGES;
+  public supportedLanguages: Array<ILang> = MultilingualService.SUPPORTED_LANGUAGES;
 
-  constructor(private log: LogService, private store: Store<IAppState>) {
+  constructor(
+      @Inject(forwardRef(() => LogService)) private log: Model.core.ILogService, 
+      private store: Store<IAppState>) {
+
     store.take(1).subscribe((s: any) => {
       // s && s.18n - ensures testing works in all cases (since some tests dont use i18n state)
       this.lang = s && s.i18n ? s.i18n.lang : '';
@@ -45,6 +51,18 @@ export class LangSwitcherComponent {
       lang = e.target.value;
     }
     this.log.debug(`Language change: ${lang}`);
-    this.store.dispatch(new multilingual.ChangeAction(lang));
+    this.store.dispatch(new MultilingualActions.ChangeAction(lang));
   }
 }
+
+declare module 'ngrx-registry' {
+  export namespace Model {
+    export namespace i18n {
+      export interface IComponentRegistry {
+        LangSwitcherComponent: typeof LangSwitcherComponent;
+      }
+    }
+  }
+}
+
+Registry.components.i18n.LangSwitcherComponent = LangSwitcherComponent;
