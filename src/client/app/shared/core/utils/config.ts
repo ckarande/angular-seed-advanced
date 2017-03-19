@@ -3,6 +3,7 @@
 export interface EnvConfig {
   API?: string;
   ENV?: string;
+  API_SERVER?: string;
 }
 
 export interface IPlatforms {

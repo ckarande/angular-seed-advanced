@@ -1,5 +1,5 @@
 // angular
-import { Injectable,  OnInit} from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Http } from '@angular/http';
 
 // libs
@@ -19,6 +19,7 @@ import { IDogState } from '../states/index';
 import { IRegistryState } from '../../states/index';
 import * as actions from '../actions/dog.action';
 import * as sailsResponses from '../../common/states/sailsResponses';
+import { AppService } from '../../../core/services/app.service';
 
 @Injectable()
 export class DogService extends Analytics {
@@ -26,10 +27,16 @@ export class DogService extends Analytics {
   constructor(
     public analytics: AnalyticsService,
     private store: Store<IRegistryState>,
-    private sails: SailsService
+    private sails: SailsService,
+    private appService: AppService
   ) {
     super(analytics);
     this.category = CATEGORY;
+    this.initialize();
+  }
+
+  initialize(): void {
+    this.sails.connect(this.appService.apiServer);
   }
 
   getDogs(): Observable<Array<IDogState>> {
@@ -40,7 +47,7 @@ export class DogService extends Analytics {
         this.sails.on('dog').subscribe(
           (dogEvent: sailsResponses.SailsPublishMessages<IDogState>) => {
           
-            switch (dogEvent.verb){
+            switch (dogEvent.verb) {
               case 'created':
                 let createMessage: sailsResponses.SailsPublishCreateMessage<IDogState> = <sailsResponses.SailsPublishCreateMessage<IDogState>>dogEvent;
                 this.store.dispatch(new actions.CreateDogActionInternal(createMessage.data));

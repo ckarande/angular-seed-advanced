@@ -1,9 +1,10 @@
 # compiled output
-dist
+# dist
 tmp
 
 # dependencies
 node_modules
+!node_modules/.tmp
 bower_components
 
 # IDEs and editors

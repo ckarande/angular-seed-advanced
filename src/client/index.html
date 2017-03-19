@@ -34,7 +34,17 @@
 
   <sd-app>Loading...</sd-app>
 
-  <script src="http://localhost:1338/js/dependencies/sails.io.js" url="http://localhost:1338">
+  <% if (BUILD_TYPE === 'prod') { %>
+    <script src="http://prod.api.udcregistry.com/js/dependencies/sails.io.js" url="http://prod.api.udcregistry.com" />
+  <% } %>
+
+  <% if (BUILD_TYPE === 'test') { %>
+    <script src="http://test.api.udcregistry.com/js/dependencies/sails.io.js" url="http://test.api.udcregistry.com" />
+  <% } %>
+
+    <% if (BUILD_TYPE === 'dev') { %>
+    <script src="http://prod.api.udcregistry.com/js/dependencies/sails.io.js" url="http://prod.api.udcregistry.com" />
+  <% } %>
 
   <script>
   // Fixes undefined module function in SystemJS bundle
