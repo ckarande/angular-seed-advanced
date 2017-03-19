@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateLoader } from '@ngx-translate/core';
+import {SailsModule} from 'angular2-sails';
 
 // app
 import { APP_COMPONENTS, AppComponent } from './app/components/index';
@@ -23,6 +24,8 @@ import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/mu
 import { MultilingualEffects } from './app/shared/i18n/index';
 import { SampleModule } from './app/shared/sample/sample.module';
 import { NameListEffects } from './app/shared/sample/index';
+import { RegistryModule } from './app/shared/registry/registry.module';
+import { DogEffects } from './app/shared/registry/index';
 
 // config
 import { Config, WindowService, ConsoleService } from './app/shared/core/index';
@@ -79,11 +82,14 @@ if (String('<%= BUILD_TYPE %>') === 'dev') {
       deps: [Http],
       useFactory: (translateLoaderFactory)
     }]),
+    SailsModule.forRoot(),
     SampleModule,
+    RegistryModule,
     StoreModule.provideStore(AppReducer),
-DEV_IMPORTS,
+    DEV_IMPORTS,
     EffectsModule.run(MultilingualEffects),
-    EffectsModule.run(NameListEffects)
+    EffectsModule.run(NameListEffects),
+    EffectsModule.run(DogEffects)
   ],
   declarations: [
     APP_COMPONENTS

@@ -1,15 +1,15 @@
 <h2>
-  {{ 'LOVE_TECH' | translate }} <div class="smile"></div>
+  {{ 'CURRENT_DOG_LIST' | translate }} <div class="smile"></div>
 </h2>
 
-<p>
+<!--<p>
   {{'ABOUT_REWARD' | translate}}
 </p>
 <p>
   {{'ABOUT_ADD' | translate}}
-</p>
+</p>-->
 
-<form (submit)="addName()">
+<!--<form (submit)="addName()">
   <input [(ngModel)]="newName" name="newName" [placeholder]="'INPUT_HINT' | translate">
   <button type="submit">{{'ADD_BTN_TEXT' | translate}}</button>
 </form>
@@ -20,4 +20,8 @@
 
 <p>
   <a class="link" (click)="readAbout()">About - RouterExtensions example</a>
-</p>
+</p>-->
+
+<ul>
+  <li *ngFor="let dog of (dogs$ | async )">{{dog.name}}</li>
+</ul>
