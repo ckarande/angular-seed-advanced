@@ -7,12 +7,13 @@ import { ExtendPackages } from './seed.config.interfaces';
  * below.
  */
 export class ProjectConfig extends SeedAdvancedConfig {
+  API_SERVER: string;
 
   PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
   
   constructor() {
     super();
-    // this.APP_TITLE = 'Put name of your app here';
+    this.APP_TITLE = 'UDC Registry Project';
 
     /* Enable typeless compiler runs (faster) between typed compiler runs. */
     // this.TYPED_COMPILE_INTERVAL = 5;
@@ -77,6 +78,22 @@ export class ProjectConfig extends SeedAdvancedConfig {
 
     /* Add to or override NPM module configurations: */
     // this.mergeObject(this.PLUGIN_CONFIGS['browser-sync'], { ghostMode: false });
+
+    let envType = '';
+
+    switch (this.BUILD_TYPE) {
+      case 'prod':
+        envType = 'prod';
+        break;
+        case 'test':
+        envType = 'test';
+        break;
+        case 'dev':
+        default:
+        envType = 'develop';
+        break;
+    }
+    this.API_SERVER = `http://${envType}.api.udcregistry.com`;
   }
 
 }

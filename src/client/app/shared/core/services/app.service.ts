@@ -7,6 +7,8 @@ import { Config } from '../utils/config';
 
 @Injectable()
 export class AppService {
+  apiServer: string;
+  
   constructor(public analytics: AnalyticsService, public log: LogService) {
     this.log.debug(`AppService -> Config env: ${Config.ENVIRONMENT().ENV}`);
   }

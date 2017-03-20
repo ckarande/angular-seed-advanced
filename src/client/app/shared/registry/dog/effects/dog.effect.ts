@@ -42,7 +42,5 @@ export class DogEffects {
     private actions$: Actions,
     private dogService: DogService,
     private _sailsService: SailsService
-  ) {
-    _sailsService.connect('http://localhost:1338');
-  }
+  ) {}
 }
