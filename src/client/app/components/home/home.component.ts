@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.names$ = this.store.let(getNames);
     this.newName = '';
-    this.dogs$ = store.let(getDogs);
+    this.dogs$ = this.store.let(getDogs);
   }
 
   /*
