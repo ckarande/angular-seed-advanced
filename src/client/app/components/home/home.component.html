@@ -1,27 +1,6 @@
-<h2>
-  {{ 'CURRENT_DOG_LIST' | translate }} <div class="smile"></div>
-</h2>
 
-<!--<p>
-  {{'ABOUT_REWARD' | translate}}
-</p>
-<p>
-  {{'ABOUT_ADD' | translate}}
-</p>-->
+<div fxLayout="column" fxFlex="max-height">
 
-<!--<form (submit)="addName()">
-  <input [(ngModel)]="newName" name="newName" [placeholder]="'INPUT_HINT' | translate">
-  <button type="submit">{{'ADD_BTN_TEXT' | translate}}</button>
-</form>
+  <h1 fxLayout="row" fxFlex="">Welcome to the UDC Registry System!</h1>
 
-<ul>
-  <li *ngFor="let name of (names$ | async)">{{name}}</li>
-</ul>
-
-<p>
-  <a class="link" (click)="readAbout()">About - RouterExtensions example</a>
-</p>-->
-
-<ul>
-  <li *ngFor="let dog of (dogs$ | async )">{{dog.name}}</li>
-</ul>
+</div>

@@ -28,14 +28,18 @@ export class DogEffects {
     })
     .catch((error) => Observable.of(new actions.InitializeDogsActionFailed(error)));
 
-  @Effect() add$: Observable<Action> = this.actions$
-    .ofType(actions.DogActionTypes.CREATE_DOG)
-    .map(action => {
-      let dog: IDogState = action.payload;
-      // analytics
-      this.dogService.track(actions.DogActionTypes._CREATE_DOG, dog);
-      return new actions.CreateDogActionInternal(dog);
-    });
+  // /**
+  //  * This effect makes use of the `startWith` operator to trigger
+  //  * the effect immediately on startup.
+  //  */
+  // @Effect() filter$: Observable<Action> = this.actions$
+  //   .ofType(actions.DogActionTypes.FILTER_DOGS)
+  //   .map(toPayload)
+  //   .switchMap((query) => this.dogService.getDogs(query))
+  //   .map(dogs => {
+  //     return new actions.InitializeDogsActionInternal(dogs);
+  //   })
+  //   .catch((error) => Observable.of(new actions.InitializeDogsActionFailed(error)));
 
   constructor(
     private store: Store<any>,

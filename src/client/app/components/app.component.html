@@ -1,5 +1,7 @@
-<div platform>
+<div platform fxLayout="column" fxFlex="max-height">
   <sd-toolbar></sd-toolbar>
   <sd-navbar></sd-navbar>
-  <router-outlet></router-outlet>
+  <div fxlayout="row" fxFlex>
+    <router-outlet fxLayout="column" fxFlex="max-height"></router-outlet>
+  </div>
 </div>

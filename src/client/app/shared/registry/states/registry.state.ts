@@ -8,11 +8,11 @@ import { compose } from '@ngrx/core/compose';
 export { IDogState } from '../dog/states/index';
 
 export interface IRegistryState {
-  dogs: Array<Dogs.IDogState>;
   dogManager: IEntityManager<Dogs.IDogState>;
+  filter: string;
 }
 
 export const initialState: IRegistryState = {
-  dogs: <Array<Dogs.IDogState>>[],
-  dogManager: Dogs.dogsInitialState
+  dogManager: Dogs.dogsInitialState,
+  filter: ''
 };

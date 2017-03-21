@@ -21,6 +21,10 @@ export function dogManagerReducer(
     case actions.DogActionTypes._UPDATE_DOG:
       return state.update(action.payload);
 
+    case actions.DogActionTypes.SELECT_DOG:
+    console.log('got event: ', action.payload);
+      return state.updateSelected(action.payload);  
+
     default:
       return state;
   }
@@ -29,4 +33,8 @@ export function dogManagerReducer(
 
 export function getDogList (stream:Observable<IDogManager>) : Observable<Array<IDogState>> {
   return stream.select((dogManagerInstance) => dogManagerInstance.list); 
+};
+
+export function __getSelectedDog (stream:Observable<IDogManager>) : Observable<IDogState> {
+  return stream.select((dogManagerInstance) => dogManagerInstance.selected); 
 };

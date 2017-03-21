@@ -88,3 +88,5 @@ export function getRegistryState(state$: Observable<IAppState>): Observable<from
 export const getLang: any = compose(fromMultilingual.getLang, getMultilingualState);
 export const getNames: any = compose(fromSample.getNames, getNameListState);
 export const getDogs: any = compose(fromRegistry.getDogs, getRegistryState);
+export const getFilter: any = compose(fromRegistry.getDogFilter, getRegistryState);
+export const getSelectedDog: any = compose(fromRegistry._getSelectedDog, getRegistryState);

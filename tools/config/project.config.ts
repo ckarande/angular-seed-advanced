@@ -43,7 +43,18 @@ export class ProjectConfig extends SeedAdvancedConfig {
 
 
     let additionalPackages: ExtendPackages[] = [
-
+      {
+        name: 'hammerjs/hammer',
+        path: 'node_modules/hammerjs/hammer.min.js'
+      },
+      {
+        name: '@angular/flex-layout',
+        path: 'node_modules/@angular/flex-layout/bundles/flex-layout.umd.js'
+      },
+      {
+        name: '@angular/material',
+        path: 'node_modules/@angular/material/bundles/material.umd.js'
+      },
       {
         name: 'reselect',
         packageMeta: {

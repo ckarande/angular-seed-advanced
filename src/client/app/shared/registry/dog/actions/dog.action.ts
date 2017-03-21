@@ -32,6 +32,9 @@ export interface IDogActions {
   _UPDATE_DOG: string;
   DOG_UPDATED: string;
   UPDATE_DOG_FAILED: string;
+
+  FILTER_DOGS: string;
+  SELECT_DOG: string;
 }
 
 export const DogActionTypes: IDogActions = {
@@ -53,7 +56,10 @@ export const DogActionTypes: IDogActions = {
   UPDATE_DOG:               type(`${CATEGORY} Update Dog`),
   _UPDATE_DOG:              type(`${CATEGORY} Update Dog (internal)`),
   DOG_UPDATED:              type(`${CATEGORY} Dog Updated`),
-  UPDATE_DOG_FAILED:        type(`${CATEGORY} Update Dog Failed`)
+  UPDATE_DOG_FAILED:        type(`${CATEGORY} Update Dog Failed`),
+
+  FILTER_DOGS:              type(`${CATEGORY} Filter Dogs`),
+  SELECT_DOG:               type(`${CATEGORY} Select Dog`)
 };
 
 /**
@@ -161,6 +167,18 @@ export class UpdateDogActionFailed implements Action {
   constructor(public payload: IDogState) { }
 }
 
+export class FilterDogsAction implements Action {
+  type = DogActionTypes.FILTER_DOGS;
+
+  constructor(public payload: string) { }
+}
+
+export class SelectDogAction implements Action {
+  type = DogActionTypes.SELECT_DOG;
+
+  constructor(public payload: IDogState) { }
+}
+
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
@@ -181,4 +199,6 @@ export type DogActions
   | UpdateDogAction
   | UpdateDogActionInternal
   | DogUpdatedAction
-  | UpdateDogActionFailed;
+  | UpdateDogActionFailed
+  | FilterDogsAction
+  | SelectDogAction;

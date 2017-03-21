@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
 // module
-import { CORE_DIRECTIVES } from './directives/index';
+import { CORE_DIRECTIVES, MediaQueryStatus } from './directives/index';
 import { CORE_PROVIDERS } from './services/index';
 import { Config } from './utils/index';
 
@@ -33,6 +33,7 @@ interface ICoreModuleOptions {
     FormsModule,
     RouterModule,
     HttpModule,
+    MediaQueryStatus,
     CORE_DIRECTIVES
   ],
   providers: [
@@ -53,3 +54,4 @@ export class CoreModule {
     }
   }
 }
+export { MediaQueryStatus } from './directives/index';

@@ -32,3 +32,11 @@ a.link {
 a.link:hover {
     color: #f00;
 }
+
+.dog-list md-list-item {
+ cursor: pointer; 
+}
+
+.dog-list md-list-item:hover {
+ background: #7cafe2; 
+}

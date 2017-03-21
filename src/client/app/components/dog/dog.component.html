@@ -1,14 +1,40 @@
-<h1>Add or Update a Dog Record</h1>
-
-<div id="DogFormContainer" class="container-fluid">
-  <form id="DogForm" action="">
-    <div class="panel panel-default">
-      <div class="panel-heading"><label for="DogNameInput">Enter any part of dog's registered name: <input
-        id="DogNameInput" type="text"/></label></div>
-      <div class="panel-body">
-        <div class="dropdown"><p>Put my select drop-down here ... populate the select list when I type in the dog's name
-          or registration number.</p></div>
+<div fxLayout="row" fxFlex="" >
+  <div fxLayout="column">
+    <div fxLayout="row">
+      <div fxLayout="column">
+        <div fxLayout="row">
+          <form id="DogForm">
+            <md-input-container fxLayout="row">
+              <input fxLayout="column"fxFlex="350px;" mdInput placeholder="Enter any part of a dog's registered name" [formControl]="dogNameCtrl">
+            </md-input-container>
+            <md-list class="dog-list" fxLayout="column" fxFlex>
+              <md-list-item fxFlex *ngFor="let dog of (filteredDogs$ | async)" (click)="handleListClicked(dog)">
+                <i md-list-avatar class="fa" [ngClass]="{'fa-venus': dog.sex == 'female', 'fa-mars': dog.sex == 'male' }" aria-hidden="true"></i>
+                <h4 md-line>{{dog.name}}</h4>
+                <p md-line> {{dog.color}}</p>
+              </md-list-item>
+            </md-list>
+          </form>
+        </div>
       </div>
     </div>
-  </form>
+  </div>
+  <div fxLayout="column" fxFlex="max-height">
+    <div fxLayout="row" fxFlex fxFlexAlign="center" *ngIf="model">
+      <form novalidate id="DogInfoForm">
+        <md-input-container fxLayout="row">
+          <input name="name"  type="text" fxLayout="column"fxFlex mdInput placeholder="Registered Name" [(ngModel)]="model.name" >
+        </md-input-container>
+        <md-input-container fxLayout="row">
+          <input name="sex" type="text" fxLayout="column" fxFlex mdInput placeholder="Sex" [(ngModel)]="model.sex" >
+        </md-input-container>
+        <md-input-container fxLayout="row">
+          <input name="color" type="text" fxLayout="column"fxFlex mdInput placeholder="Color" [(ngModel)]="model.color">
+        </md-input-container>        
+        <md-input-container fxLayout="row">
+          <input name="altered" type="text" fxLayout="column"fxFlex mdInput placeholder="Altered" [(ngModel)]="model.altered">
+        </md-input-container>
+      </form>
+    </div>
+  </div>
 </div>

@@ -1,23 +1,30 @@
+// pre-req libs
+import 'hammerjs/hammer';
+
 // angular
 import { NgModule } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { Http } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // libs
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateLoader } from '@ngx-translate/core';
-import {SailsModule} from 'angular2-sails';
+
+import { SailsModule } from 'angular2-sails';
 
 // app
 import { APP_COMPONENTS, AppComponent } from './app/components/index';
 import { routes } from './app/components/app.routes';
 
 // feature modules
-import { CoreModule } from './app/shared/core/core.module';
+import { CoreModule, MediaQueryStatus } from './app/shared/core/core.module';
 import { AppReducer } from './app/shared/ngrx/index';
 import { AnalyticsModule } from './app/shared/analytics/analytics.module';
 import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/multilingual.module';
@@ -75,7 +82,11 @@ if (String('<%= BUILD_TYPE %>') === 'dev') {
       { provide: WindowService, useFactory: (win) },
       { provide: ConsoleService, useFactory: (cons) }
     ]),
+    FormsModule,
+    ReactiveFormsModule,
     routerModule,
+    MaterialModule,
+    FlexLayoutModule,
     AnalyticsModule,
     MultilingualModule.forRoot([{
       provide: TranslateLoader,
@@ -90,6 +101,10 @@ if (String('<%= BUILD_TYPE %>') === 'dev') {
     EffectsModule.run(MultilingualEffects),
     EffectsModule.run(NameListEffects),
     EffectsModule.run(DogEffects)
+  ],
+  exports: [
+    MaterialModule,
+    FlexLayoutModule
   ],
   declarations: [
     APP_COMPONENTS
