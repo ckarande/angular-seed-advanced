@@ -13,7 +13,7 @@ export function dogManagerReducer(
       return state.updateList(action.payload);
     
     case actions.DogActionTypes._CREATE_DOG:
-      return state.add(action.payload);
+      return state.create(action.payload);
 
     case actions.DogActionTypes._DESTROY_DOG:
       return state.destroy(action.payload);
@@ -31,7 +31,7 @@ export function dogManagerReducer(
 
 }
 
-export function getDogList (stream:Observable<IDogManager>) : Observable<Array<IDogState>> {
+export function __getDogList (stream:Observable<IDogManager>) : Observable<Array<IDogState>> {
   return stream.select((dogManagerInstance) => dogManagerInstance.list); 
 };
 

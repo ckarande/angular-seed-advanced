@@ -3,7 +3,7 @@ import { IRegistryState } from '../states/index';
 import { IDogManager } from '../dog/states/index';
 import { combineReducers } from '@ngrx/store';
 import { dogManagerReducer, dogFilterReducer } from '../dog/reducers/index';
-import { getDogList, __getSelectedDog } from '../dog/reducers/index';
+import { __getDogList, __getSelectedDog } from '../dog/reducers/index';
 import { compose } from '@ngrx/core/compose';
 
 export const registryReducer = combineReducers({
@@ -17,5 +17,5 @@ export function getDogFilter(stream: Observable<IRegistryState>): Observable<str
 
 export const _getSelectedDog = compose(__getSelectedDog, getDogManager);
 
-export const getDogs = compose(getDogList, getDogManager);
+export const _getDogList = compose(__getDogList, getDogManager);
 

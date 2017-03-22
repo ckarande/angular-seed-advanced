@@ -1,4 +1,4 @@
-<div fxLayout="row" fxFlex="" >
+<div fxLayout="row" fxFlex >
   <div fxLayout="column">
     <div fxLayout="row">
       <div fxLayout="column">
@@ -19,20 +19,20 @@
       </div>
     </div>
   </div>
-  <div fxLayout="column" fxFlex="max-height">
+  <div fxLayout="column" fxFlex>
     <div fxLayout="row" fxFlex fxFlexAlign="center" *ngIf="model">
       <form novalidate id="DogInfoForm">
         <md-input-container fxLayout="row">
-          <input name="name"  type="text" fxLayout="column"fxFlex mdInput placeholder="Registered Name" [(ngModel)]="model.name" >
+          <input name="name"  type="text" fxLayout="column" fxFlex mdInput placeholder="Registered Name" [(ngModel)]="model.name" >
         </md-input-container>
         <md-input-container fxLayout="row">
           <input name="sex" type="text" fxLayout="column" fxFlex mdInput placeholder="Sex" [(ngModel)]="model.sex" >
         </md-input-container>
         <md-input-container fxLayout="row">
-          <input name="color" type="text" fxLayout="column"fxFlex mdInput placeholder="Color" [(ngModel)]="model.color">
+          <input name="color" type="text" fxLayout="column" fxFlex mdInput placeholder="Color" [(ngModel)]="model.color">
         </md-input-container>        
         <md-input-container fxLayout="row">
-          <input name="altered" type="text" fxLayout="column"fxFlex mdInput placeholder="Altered" [(ngModel)]="model.altered">
+          <input name="altered" type="text" fxLayout="column" fxFlex mdInput placeholder="Altered" [(ngModel)]="model.altered">
         </md-input-container>
       </form>
     </div>

@@ -13,7 +13,7 @@ export interface IEntityManager<T extends IEntity> {
 
     updateSelected(newSelected: T): IEntityManager<T>;
 
-    add(newItem: T): IEntityManager<T>;
+    create(newItem: T): IEntityManager<T>;
 
     destroy(iItemToDestroy: T) : IEntityManager<T>;
 
@@ -44,7 +44,7 @@ export class EntityManager<T extends IEntity> implements IEntityManager<T> {
        return this.newInstance(this.list, newSelected);
    };
 
-   add(newItem: T): IEntityManager<T> {
+   create(newItem: T): IEntityManager<T> {
        return this.newInstance([...this.list, newItem], this.selected);
    };
 

@@ -31,8 +31,7 @@ export class DogComponent implements OnInit {
 
   dogNameCtrl: FormControl;
 
-  constructor(private store: Store<IAppState>, public routerext: RouterExtensions) {
-  }
+  constructor(private store: Store<IAppState>, public routerext: RouterExtensions) {}
 
   handleListClicked(dog: IDogState) {
     this.store.dispatch({type: DogActionTypes.SELECT_DOG, payload: dog});
@@ -41,14 +40,17 @@ export class DogComponent implements OnInit {
   ngOnInit() {
 
     this.dogs$ = this.store.let(getDogs);
+    
     this.store.let(getSelectedDog).subscribe(
       (dog: IDogState) => { 
         this.model = dog;
        }, 
       (err) => { console.log('Got err: ', err); }, 
       () => { console.log('DONE!!!!'); } 
-    );;
+    );
+
     this.filter$ = this.store.let(getFilter);
+
     this.filteredDogs$ = Observable.combineLatest(this.dogs$, this.filter$, (dogs: Array<IDogState>, filter: string) => { 
       return dogs.filter((dog: IDogState) => new RegExp(filter, 'gi').test(dog.name));
     } );
@@ -57,7 +59,7 @@ export class DogComponent implements OnInit {
     this.dogNameCtrl.valueChanges
         .startWith('d')
         .subscribe(
-          (query) => {this.store.dispatch({type: DogActionTypes.FILTER_DOGS, payload: query}); }, 
+          (query: string) => {this.store.dispatch({type: DogActionTypes.FILTER_DOGS, payload: query}); }, 
           (err) => { console.log(err); }, 
           () => {console.log('DONE');}
         );
