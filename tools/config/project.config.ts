@@ -95,16 +95,21 @@ export class ProjectConfig extends SeedAdvancedConfig {
     switch (this.BUILD_TYPE) {
       case 'prod':
         envType = 'prod';
+        this.API_SERVER = `http://${envType}.api.udcregistry.com`;
         break;
         case 'test':
         envType = 'test';
+        this.API_SERVER = `http://${envType}.api.udcregistry.com`;
         break;
         case 'dev':
         default:
         envType = 'develop';
+        this.API_SERVER = `http://localhost:1338`;
+        console.log('got here!');
+        //this.API_SERVER = `http://${envType}.api.udcregistry.com`;
         break;
     }
-    this.API_SERVER = `http://${envType}.api.udcregistry.com`;
+    
   }
 
 }
