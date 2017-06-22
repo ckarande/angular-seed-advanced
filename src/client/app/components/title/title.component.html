@@ -1,0 +1,40 @@
+<div fxLayout="row" fxFlex >
+  <div fxLayout="column">
+    <div fxLayout="row">
+      <div fxLayout="column">
+        <div fxLayout="row">
+          <form id="TitleForm">
+            <md-input-container fxLayout="row">
+              <input fxLayout="column"fxFlex="350px;" mdInput placeholder="Enter any part of a title name" [formControl]="TitleNameCtrl">
+            </md-input-container>
+            <md-list class="Title-list" fxLayout="column" fxFlex>
+              <md-list-item fxFlex *ngFor="let Title of (filteredTitles$ | async)" (click)="handleListClicked(Title)">
+                <i md-list-avatar class="fa" [ngClass]="{'fa-venus': Title.sex == 'female', 'fa-mars': Title.sex == 'male' }" aria-hidden="true"></i>
+                <h4 md-line>{{Title.name}}</h4>
+                <p md-line> {{Title.abbreviation}}</p>
+              </md-list-item>
+            </md-list>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="column" fxFlex>
+    <div fxLayout="row" fxFlex fxFlexAlign="center" *ngIf="model">
+      <form novalidate id="TitleInfoForm">
+        <md-input-container fxLayout="row">
+          <input name="name"  type="text" fxLayout="column" fxFlex mdInput placeholder="Registered Name" [(ngModel)]="model.name" >
+        </md-input-container>
+        <md-input-container fxLayout="row">
+          <input name="sex" type="text" fxLayout="column" fxFlex mdInput placeholder="Sex" [(ngModel)]="model.sex" >
+        </md-input-container>
+        <md-input-container fxLayout="row">
+          <input name="color" type="text" fxLayout="column" fxFlex mdInput placeholder="Color" [(ngModel)]="model.color">
+        </md-input-container>        
+        <md-input-container fxLayout="row">
+          <input name="altered" type="text" fxLayout="column" fxFlex mdInput placeholder="Altered" [(ngModel)]="model.altered">
+        </md-input-container>
+      </form>
+    </div>
+  </div>
+</div>

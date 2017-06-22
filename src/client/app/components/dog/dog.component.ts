@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 import 'rxjs/add/operator/startWith';
 
 import { RouterExtensions, Config } from '../../shared/core/index';
-import { IAppState, getDogs, getFilter, getSelectedDog } from '../../shared/ngrx/index';
+import { IAppState, getDogs, getDogFilter, getSelectedDog } from '../../shared/ngrx/index';
 import { IDogState, Dog, DogActionTypes } from '../../shared/registry/dog/index';
 
 @Component({
@@ -49,7 +49,7 @@ export class DogComponent implements OnInit {
       () => { console.log('DONE!!!!'); } 
     );
 
-    this.filter$ = this.store.let(getFilter);
+    this.filter$ = this.store.let(getDogFilter);
 
     this.filteredDogs$ = Observable.combineLatest(this.dogs$, this.filter$, (dogs: Array<IDogState>, filter: string) => { 
       return dogs.filter((dog: IDogState) => new RegExp(filter, 'gi').test(dog.name));

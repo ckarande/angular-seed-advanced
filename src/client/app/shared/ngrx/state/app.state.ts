@@ -88,5 +88,14 @@ export function getRegistryState(state$: Observable<IAppState>): Observable<from
 export const getLang: any = compose(fromMultilingual.getLang, getMultilingualState);
 export const getNames: any = compose(fromSample.getNames, getNameListState);
 export const getDogs: any = compose(fromRegistry._getDogList, getRegistryState);
-export const getFilter: any = compose(fromRegistry.getDogFilter, getRegistryState);
+export const getOrganizations: any = compose(fromRegistry._getOrganizationList, getRegistryState);
+export const getTitleCategories: any = compose(fromRegistry._getTitleCategoryList, getRegistryState);
+export const getTitles: any = compose(fromRegistry._getTitleList, getRegistryState);
+export const getDogFilter: any = compose(fromRegistry.getDogFilter, getRegistryState);
+export const getOrganizationFilter: any = compose(fromRegistry.getOrganizationFilter, getRegistryState);
+export const getTitleCategoryFilter: any = compose(fromRegistry.getTitleCategoryFilter, getRegistryState);
+export const getTitileFilter: any = compose(fromRegistry.getTitleFilter, getRegistryState);
 export const getSelectedDog: any = compose(fromRegistry._getSelectedDog, getRegistryState);
+export const getSelectedOrganization: any = compose(fromRegistry._getSelectedOrganization, getRegistryState);
+export const getSelectedTitleCategory: any = compose(fromRegistry._getSelectedTitleCategory, getRegistryState);
+export const getSelectedTitle: any = compose(fromRegistry._getSelectedTitle, getRegistryState);
