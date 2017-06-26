@@ -1,2 +1,2 @@
-export * from './titlecategory.reducer';
-export * from './titlecategory-filter.reducer';
+export * from './titleCategory.reducer';
+export * from './titleCategory-filter.reducer';

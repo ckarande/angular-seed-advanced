@@ -4,17 +4,17 @@ import { TestBed } from '@angular/core/testing';
 
 // app
 import { t } from '../../shared/test/index';
-import { DogComponent } from './dog.component';
+import { TitleCategoryComponent } from './titleCategory.component';
 
 // test module configuration for each test
 const testModuleConfig = () => {
   TestBed.configureTestingModule({
-    declarations: [DogComponent, TestComponent]
+    declarations: [TitleCategoryComponent, TestComponent]
   });
 };
 
 export function main() {
-  t.describe('@Component: DogComponent', () => {
+  t.describe('@Component: TitleCategoryComponent', () => {
 
     t.be(testModuleConfig);
 
@@ -34,6 +34,6 @@ export function main() {
 
 @Component({
   selector: 'test-cmp',
-  template: '<sd-dog></sd-dog>'
+  template: '<sd-titleCategory></sd-titleCategory>'
 })
 class TestComponent {}

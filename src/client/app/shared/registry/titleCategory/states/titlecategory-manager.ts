@@ -1,4 +1,4 @@
-import { ITitleCategoryState } from './titlecategory';
+import { ITitleCategoryState } from './titleCategory';
 import { IEntityManager, EntityManager } from '../../common/states/index';
 
 export interface ITitleCategoryManager extends IEntityManager<ITitleCategoryState> {};

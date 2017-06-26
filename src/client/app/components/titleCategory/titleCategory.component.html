@@ -3,15 +3,15 @@
     <div fxLayout="row">
       <div fxLayout="column">
         <div fxLayout="row">
-          <form id="DogForm">
+          <form id="TitleCategoryForm">
             <md-input-container fxLayout="row">
-              <input fxLayout="column"fxFlex="350px;" mdInput placeholder="Enter any part of a dog's registered name" [formControl]="dogNameCtrl">
+              <input fxLayout="column"fxFlex="350px;" mdInput placeholder="Enter any part of a title category's registered name" [formControl]="titleCategoryNameCtrl">
             </md-input-container>
-            <md-list class="dog-list" fxLayout="column" fxFlex>
-              <md-list-item fxFlex *ngFor="let dog of (filteredDogs$ | async)" (click)="handleListClicked(dog)">
-                <i md-list-avatar class="fa" [ngClass]="{'fa-venus': dog.sex == 'female', 'fa-mars': dog.sex == 'male' }" aria-hidden="true"></i>
-                <h4 md-line>{{dog.name}}</h4>
-                <p md-line> {{dog.color}}</p>
+            <md-list class="titleCategory-list" fxLayout="column" fxFlex>
+              <md-list-item fxFlex *ngFor="let titleCategory of (filteredTitleCategorys$ | async)" (click)="handleListClicked(titleCategory)">
+                <i md-list-avatar class="fa" [ngClass]="{'fa-venus': titleCategory.sex == 'female', 'fa-mars': titleCategory.sex == 'male' }" aria-hidden="true"></i>
+                <h4 md-line>{{titleCategory.name}}</h4>
+                <p md-line> {{titleCategory.color}}</p>
               </md-list-item>
             </md-list>
           </form>
@@ -21,7 +21,7 @@
   </div>
   <div fxLayout="column" fxFlex>
     <div fxLayout="row" fxFlex fxFlexAlign="center" *ngIf="model">
-      <form novalidate id="DogInfoForm">
+      <form novalidate id="TitleCategoryInfoForm">
         <md-input-container fxLayout="row">
           <input name="name"  type="text" fxLayout="column" fxFlex mdInput placeholder="Registered Name" [(ngModel)]="model.name" >
         </md-input-container>

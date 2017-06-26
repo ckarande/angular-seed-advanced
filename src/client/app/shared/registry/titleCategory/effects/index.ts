@@ -1,1 +1,1 @@
-export * from './titlecategory.effect';
+export * from './titleCategory.effect';

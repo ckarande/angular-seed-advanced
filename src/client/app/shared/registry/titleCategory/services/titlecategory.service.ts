@@ -17,7 +17,7 @@ import { CATEGORY } from '../common/category.common';
 // module
 import { ITitleCategoryState } from '../states/index';
 import { IRegistryState } from '../../states/index';
-import * as actions from '../actions/titlecategory.action';
+import * as actions from '../actions/titleCategory.action';
 import * as sailsResponses from '../../common/states/sailsResponses';
 import { AppService } from '../../../core/services/app.service';
 

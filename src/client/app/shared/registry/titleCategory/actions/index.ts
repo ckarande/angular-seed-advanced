@@ -1,1 +1,1 @@
-export * from './titlecategory.action';
+export * from './titleCategory.action';

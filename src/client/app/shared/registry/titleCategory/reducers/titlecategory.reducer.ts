@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { ITitleCategoryManager, TitleCategoryManager, ITitleCategoryState, titleCategoriesInitialState } from '../states/index';
 import { IRegistryState } from '../../states/registry.state';
-import * as actions from '../actions/titlecategory.action';
+import * as actions from '../actions/titleCategory.action';
 import { Action } from '@ngrx/store';
 
 export function titleCategoryManagerReducer(

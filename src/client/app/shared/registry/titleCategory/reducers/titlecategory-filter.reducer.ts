@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { IRegistryState } from '../../states/registry.state';
-import * as actions from '../actions/titlecategory.action';
+import * as actions from '../actions/titleCategory.action';
 import { Action } from '@ngrx/store';
 
 export function titleCategoryFilterReducer(

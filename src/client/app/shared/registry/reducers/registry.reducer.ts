@@ -20,6 +20,17 @@ import { ITitleManager } from '../title/states/index';
 import { titleManagerReducer, titleFilterReducer } from '../title/reducers/index';
 import { __getTitleList, __getSelectedTitle } from '../title/reducers/index';
 
+import { IBreedManager } from '../breed/states/index';
+import { breedManagerReducer, breedFilterReducer } from '../breed/reducers/index';
+import { __getBreedList, __getSelectedBreed } from '../breed/reducers/index';
+
+import { IBreedGroupManager } from '../breedgroup/states/index';
+import { breedGroupManagerReducer, breedGroupFilterReducer } from '../breedGroup/reducers/index';
+import { __getBreedGroupList, __getSelectedBreedGroup } from '../breedGroup/reducers/index';
+
+import { IMemberClubManager } from '../memberClub/states/index';
+import { memberClubManagerReducer, memberClubFilterReducer } from '../memberClub/reducers/index';
+import { __getMemberClubList, __getSelectedMemberClub } from '../memberClub/reducers/index';
 
 export const registryReducer = combineReducers({
     dogManager: dogManagerReducer,
@@ -62,3 +73,29 @@ export const _getSelectedTitle = compose(__getSelectedTitle, getTitleManager);
 
 export const _getTitleList = compose(__getTitleList, getTitleManager);
 
+
+export function getBreedManager(stream: Observable<IRegistryState>): Observable<IBreedManager> {return stream.select(registryInstance => registryInstance.breedManager);}
+
+export function getBreedFilter(stream: Observable<IRegistryState>): Observable<string> {return stream.select(registryInstance => registryInstance.breedFilter);}
+
+export const _getSelectedBreed = compose(__getSelectedBreed, getBreedManager);
+
+export const _getBreedList = compose(__getBreedList, getBreedManager);
+
+
+export function getBreedGroupManager(stream: Observable<IRegistryState>): Observable<IBreedGroupManager> {return stream.select(registryInstance => registryInstance.breedGroupManager);}
+
+export function getBreedGroupFilter(stream: Observable<IRegistryState>): Observable<string> {return stream.select(registryInstance => registryInstance.breedGroupFilter);}
+
+export const _getSelectedBreedGroup = compose(__getSelectedBreedGroup, getBreedGroupManager);
+
+export const _getBreedGroupList = compose(__getBreedGroupList, getBreedGroupManager);
+
+
+export function getMemberClubManager(stream: Observable<IRegistryState>): Observable<IMemberClubManager> {return stream.select(registryInstance => registryInstance.memberClubManager);}
+
+export function getMemberClubFilter(stream: Observable<IRegistryState>): Observable<string> {return stream.select(registryInstance => registryInstance.memberClubFilter);}
+
+export const _getSelectedMemberClub = compose(__getSelectedMemberClub, getMemberClubManager);
+
+export const _getMemberClubList = compose(__getMemberClubList, getMemberClubManager);

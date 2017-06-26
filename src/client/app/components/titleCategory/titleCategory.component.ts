@@ -6,7 +6,7 @@ import 'rxjs/add/operator/startWith';
 
 import { RouterExtensions, Config } from '../../shared/core/index';
 import { IAppState, getTitleCategories, getTitleCategoryFilter, getSelectedTitleCategory } from '../../shared/ngrx/index';
-import { ITitleCategoryState, TitleCategory, TitleCategoryActionTypes } from '../../shared/registry/titlecategory/index';
+import { ITitleCategoryState, TitleCategory, TitleCategoryActionTypes } from '../../shared/registry/titleCategory/index';
 
 @Component({
   moduleId: module.id,

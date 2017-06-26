@@ -6,6 +6,9 @@ export interface IOrganizationState extends IEntity {
     abbreviation: string;
     order: number;
     website: string;
+    //titleCategories: TitleCategory;
+    //eventCategories: EventCategory;
+    //breedGroups: BreedGroup;
 };
 
 export class Organization extends Entity implements IOrganizationState {
@@ -13,6 +16,9 @@ export class Organization extends Entity implements IOrganizationState {
     abbreviation: string;
     order: number;
     website: string;
+    //titleCategories: TitleCategory;
+    //eventCategories: EventCategory;
+    //breedGroups: BreedGroup;
 
     defaultAttributes() {
         return Object.assign({}, super.defaultAttributes(), 
@@ -20,7 +26,10 @@ export class Organization extends Entity implements IOrganizationState {
             name: '',
             abbreviation: '',
             order: 1,
-            website: ''
+            website: ''//,
+            //titleCategories: TitleCategory,
+            //eventCategories: EventCategory,
+            //breedGroups: BreedGroup
         });
     };
 

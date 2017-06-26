@@ -1,7 +1,7 @@
-import { TitleCategoryService } from './titlecategory.service';
+import { TitleCategoryService } from './titleCategory.service';
 
 export const TITLECATEGORY_PROVIDERS: any[] = [
   TitleCategoryService
 ];
 
-export * from './titlecategory.service';
+export * from './titleCategory.service';

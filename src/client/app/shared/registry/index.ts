@@ -20,7 +20,13 @@ export * from './dog/index';
 
 export * from './organization/index';
 
-export * from './titlecategory/index';
+export * from './titleCategory/index';
 
 export * from './title/index';
+
+export * from './breed/index';
+
+export * from './breedGroup/index';
+
+export * from './memberClub/index';
 

@@ -9,8 +9,8 @@ import { SailsService } from 'angular2-sails';
 import { ITitleCategoryState } from '../states/index';
 
 // module
-import { TitleCategoryService } from '../services/titlecategory.service';
-import * as actions from '../actions/titlecategory.action';
+import { TitleCategoryService } from '../services/titleCategory.service';
+import * as actions from '../actions/titleCategory.action';
 
 @Injectable()
 export class TitleCategoryEffects {

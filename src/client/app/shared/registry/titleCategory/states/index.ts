@@ -1,2 +1,2 @@
-export * from './titlecategory';
-export * from './titlecategory-manager';
+export * from './titleCategory';
+export * from './titleCategory-manager';

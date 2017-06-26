@@ -38,7 +38,7 @@ export interface ITitleCategoryActions {
 }
 
 export const TitleCategoryActionTypes: ITitleCategoryActions = {
-  INITIALIZE_TITLECATEGORIES:          type(`${CATEGORY} Initialize TitleCategoriesl`),
+  INITIALIZE_TITLECATEGORIES:          type(`${CATEGORY} Initialize TitleCategories`),
   _INITIALIZE_TITLECATEGORIES:         type(`${CATEGORY} Initialize TitleCategories (internal)`),
   TITLECATEGORIES_INITIALIZED:         type(`${CATEGORY} Initialized TitleCategories`),
   INITIALIZE_TITLECATEGORIES_FAILED:   type(`${CATEGORY} Initialize TitleCategories Failed`),
