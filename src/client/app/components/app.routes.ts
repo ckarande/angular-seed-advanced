@@ -3,7 +3,7 @@ import {HomeRoutes} from './home/home.routes';
 import {AboutRoutes} from './about/about.routes';
 import {DogRoutes} from './dog/dog.routes';
 import {OrganizationRoutes} from './organization/organization.routes';
-import {TitleCategoryRoutes} from './titlecategory/titlecategory.routes';
+import {TitleCategoryRoutes} from './titleCategory/titleCategory.routes';
 import {TitleRoutes} from './title/title.routes';
 import {BreedRoutes} from './breed/breed.routes';
 import {BreedGroupRoutes} from './breedGroup/breedGroup.routes';

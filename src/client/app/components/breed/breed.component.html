@@ -1,19 +1,19 @@
 <div fxLayout="row" fxFlex >
-  <div fxLayout="column">
+  <!--<div fxLayout="column">
     <div fxLayout="row">
       <div fxLayout="column">
         <div fxLayout="row">
           <form id="BreedForm">
             <md-input-container fxLayout="row">
               <input fxLayout="column"fxFlex="350px;" mdInput placeholder="Enter any part of a breed's name" [formControl]="breedNameCtrl">
-            <!--</md-input-container>
+            </md-input-container>
             <md-list class="breed-list" fxLayout="column" fxFlex>
               <md-list-item fxFlex *ngFor="let breed of (filteredBreedGroups$ | async)" (click)="handleListClicked(breed)">
                 <i md-list-avatar class="fa" [ngClass]="{'fa-venus': breed.sex == 'female', 'fa-mars': breed.sex == 'male' }" aria-hidden="true"></i>
                 <h4 md-line>{{breed.name}}</h4>
                 <p md-line> {{breed.color}}</p>
               </md-list-item>
-            </md-list>-->
+            </md-list>
           </form>
         </div>
       </div>
@@ -36,5 +36,5 @@
         </md-input-container>
       </form>
     </div>
-  </div>
+  </div> -->
 </div>

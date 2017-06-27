@@ -42,30 +42,30 @@ export class TitleCategoryService extends Analytics {
   getTitleCategories(): Observable<Array<ITitleCategoryState>> {
 
     return this.sails
-      .get('/titlecategory')
+      .get('/titleCategory')
       .map(result => {
-        this.sails.on('titlecategory').subscribe(
-          (titlecategoryEvent: sailsResponses.SailsPublishMessages<ITitleCategoryState>) => {
+        this.sails.on('titleCategory').subscribe(
+          (titleCategoryEvent: sailsResponses.SailsPublishMessages<ITitleCategoryState>) => {
           
-            switch (titlecategoryEvent.verb) {
+            switch (titleCategoryEvent.verb) {
               case 'created':
-                let createMessage: sailsResponses.SailsPublishCreateMessage<ITitleCategoryState> = <sailsResponses.SailsPublishCreateMessage<ITitleCategoryState>>titlecategoryEvent;
+                let createMessage: sailsResponses.SailsPublishCreateMessage<ITitleCategoryState> = <sailsResponses.SailsPublishCreateMessage<ITitleCategoryState>>titleCategoryEvent;
                 this.store.dispatch(new actions.CreateTitleCategoryActionInternal(createMessage.data));
                 break;
               case 'destroyed':
-                let destroyMessage: sailsResponses.SailsPublishDestroyMessage<ITitleCategoryState> = <sailsResponses.SailsPublishDestroyMessage<ITitleCategoryState>>titlecategoryEvent;
+                let destroyMessage: sailsResponses.SailsPublishDestroyMessage<ITitleCategoryState> = <sailsResponses.SailsPublishDestroyMessage<ITitleCategoryState>>titleCategoryEvent;
                 this.store.dispatch(new actions.DestroyTitleCategoryActionInternal(destroyMessage.previous));
                 break;
               case 'updated':
-                let updateMessage: sailsResponses.SailsPublishUpdateMessage<ITitleCategoryState> = <sailsResponses.SailsPublishUpdateMessage<ITitleCategoryState>>titlecategoryEvent; 
+                let updateMessage: sailsResponses.SailsPublishUpdateMessage<ITitleCategoryState> = <sailsResponses.SailsPublishUpdateMessage<ITitleCategoryState>>titleCategoryEvent; 
                 this.store.dispatch(new actions.UpdateTitleCategoryActionInternal(updateMessage.data));
                 break;
               default:
-              console.log('getTitleCategories: socket monitoring: Unknown type of socket event: ', titlecategoryEvent);
+              console.log('getTitleCategories: socket monitoring: Unknown type of socket event: ', titleCategoryEvent);
             }
           },
-          (error) => {console.log('titlecategory event: Got error from /titlecategory subscription: ', error, error.stack);},
-          () => {console.log('Subscription complete for /titlecategory');}
+          (error) => {console.log('titleCategory event: Got error from /titleCategory subscription: ', error, error.stack);},
+          () => {console.log('Subscription complete for /titleCategory');}
         );
 
        return result.data;

@@ -1,6 +1,6 @@
 import { DogService } from '../dog/services/dog.service';
 import { OrganizationService } from '../organization/services/organization.service';
-import { TitleCategoryService } from '../titlecategory/services/titlecategory.service';
+import { TitleCategoryService } from '../titleCategory/services/titleCategory.service';
 import { TitleService } from '../title/services/title.service';
 import { BreedService } from '../breed/services/breed.service';
 import { BreedGroupService } from '../breedGroup/services/breedGroup.service';
@@ -18,7 +18,7 @@ export const REGISTRY_PROVIDERS: any[] = [
 
 export * from '../dog/services/dog.service';
 export * from '../organization/services/organization.service';
-export * from '../titlecategory/services/titlecategory.service';
+export * from '../titleCategory/services/titleCategory.service';
 export * from '../title/services/title.service';
 export * from '../breed/services/breed.service';
 export * from '../breedGroup/services/breedGroup.service';
