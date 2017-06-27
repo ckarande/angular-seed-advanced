@@ -42,30 +42,30 @@ export class EventCategoryService extends Analytics {
   getEventCategories(): Observable<Array<IEventCategoryState>> {
 
     return this.sails
-      .get('/eventcategory')
+      .get('/eventCategory')
       .map(result => {
-        this.sails.on('eventcategory').subscribe(
-          (eventcategoryEvent: sailsResponses.SailsPublishMessages<IEventCategoryState>) => {
+        this.sails.on('eventCategory').subscribe(
+          (eventCategoryEvent: sailsResponses.SailsPublishMessages<IEventCategoryState>) => {
           
-            switch (eventcategoryEvent.verb) {
+            switch (eventCategoryEvent.verb) {
               case 'created':
-                let createMessage: sailsResponses.SailsPublishCreateMessage<IEventCategoryState> = <sailsResponses.SailsPublishCreateMessage<IEventCategoryState>>eventcategoryEvent;
+                let createMessage: sailsResponses.SailsPublishCreateMessage<IEventCategoryState> = <sailsResponses.SailsPublishCreateMessage<IEventCategoryState>>eventCategoryEvent;
                 this.store.dispatch(new actions.CreateEventCategoryActionInternal(createMessage.data));
                 break;
               case 'destroyed':
-                let destroyMessage: sailsResponses.SailsPublishDestroyMessage<IEventCategoryState> = <sailsResponses.SailsPublishDestroyMessage<IEventCategoryState>>eventcategoryEvent;
+                let destroyMessage: sailsResponses.SailsPublishDestroyMessage<IEventCategoryState> = <sailsResponses.SailsPublishDestroyMessage<IEventCategoryState>>eventCategoryEvent;
                 this.store.dispatch(new actions.DestroyEventCategoryActionInternal(destroyMessage.previous));
                 break;
               case 'updated':
-                let updateMessage: sailsResponses.SailsPublishUpdateMessage<IEventCategoryState> = <sailsResponses.SailsPublishUpdateMessage<IEventCategoryState>>eventcategoryEvent; 
+                let updateMessage: sailsResponses.SailsPublishUpdateMessage<IEventCategoryState> = <sailsResponses.SailsPublishUpdateMessage<IEventCategoryState>>eventCategoryEvent; 
                 this.store.dispatch(new actions.UpdateEventCategoryActionInternal(updateMessage.data));
                 break;
               default:
-              console.log('getEventCategories: socket monitoring: Unknown type of socket event: ', eventcategoryEvent);
+              console.log('getEventCategories: socket monitoring: Unknown type of socket event: ', eventCategoryEvent);
             }
           },
-          (error) => {console.log('eventcategory event: Got error from /eventcategory subscription: ', error, error.stack);},
-          () => {console.log('Subscription complete for /eventcategory');}
+          (error) => {console.log('eventCategory event: Got error from /eventCategory subscription: ', error, error.stack);},
+          () => {console.log('Subscription complete for /eventCategory');}
         );
 
        return result.data;
