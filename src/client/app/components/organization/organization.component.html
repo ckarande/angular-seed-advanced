@@ -1,17 +1,19 @@
-<div fxLayout="row" fxFlex >
+<h1>Future home of Organizations!</h1>
+
+<!--<div fxLayout="row" fxFlex >
   <div fxLayout="column">
     <div fxLayout="row">
       <div fxLayout="column">
         <div fxLayout="row">
-          <form id="OrganizationForm">
+          <form id="EventForm">
             <md-input-container fxLayout="row">
-              <input fxLayout="column"fxFlex="350px;" mdInput placeholder="Enter any part of a organization's registered name" [formControl]="organizationNameCtrl">
+              <input fxLayout="column"fxFlex="350px;" mdInput placeholder="Enter any part of a event categroy name" [formControl]="eventCategoryNameCtrl">
             </md-input-container>
-            <md-list class="organization-list" fxLayout="column" fxFlex>
-              <md-list-item fxFlex *ngFor="let organization of (filteredOrganizations$ | async)" (click)="handleListClicked(organization)">
-                <i md-list-avatar class="fa" [ngClass]="{'fa-venus': organization.sex == 'female', 'fa-mars': organization.sex == 'male' }" aria-hidden="true"></i>
-                <h4 md-line>{{organization.name}}</h4>
-                <p md-line> {{organization.abbreviation}}</p>
+            <md-list class="eventCategory-list" fxLayout="column" fxFlex>
+              <md-list-item fxFlex *ngFor="let eventCategory of (filteredEvents$ | async)" (click)="handleListClicked(eventCategory)">
+                <i md-list-avatar class="fa" [ngClass]="{'fa-venus': eventCategory.sex == 'female', 'fa-mars': eventCategory.sex == 'male' }" aria-hidden="true"></i>
+                <h4 md-line>{{eventCategory.name}}</h4>
+                <p md-line> {{eventCategory.color}}</p>
               </md-list-item>
             </md-list>
           </form>
@@ -21,20 +23,21 @@
   </div>
   <div fxLayout="column" fxFlex>
     <div fxLayout="row" fxFlex fxFlexAlign="center" *ngIf="model">
-      <form novalidate id="OrganizationInfoForm">
+      <form novalidate id="EventInfoForm">
         <md-input-container fxLayout="row">
-          <input name="name"  type="text" fxLayout="column" fxFlex mdInput placeholder="Name" [(ngModel)]="model.name" >
+          <input name="name"  type="text" fxLayout="column" fxFlex mdInput placeholder="Registered Name" [(ngModel)]="model.name" >
         </md-input-container>
         <md-input-container fxLayout="row">
-          <input name="sex" type="text" fxLayout="column" fxFlex mdInput placeholder="Abbreviation" [(ngModel)]="model.abbreviation" >
+          <input name="sex" type="text" fxLayout="column" fxFlex mdInput placeholder="Sex" [(ngModel)]="model.sex" >
         </md-input-container>
         <md-input-container fxLayout="row">
-          <input name="color" type="number" fxLayout="column" fxFlex mdInput placeholder="Order" [(ngModel)]="model.order">
+          <input name="color" type="text" fxLayout="column" fxFlex mdInput placeholder="Color" [(ngModel)]="model.color">
         </md-input-container>        
         <md-input-container fxLayout="row">
-          <input name="altered" type="url" fxLayout="column" fxFlex mdInput placeholder="Website" [(ngModel)]="model.website">
+          <input name="altered" type="text" fxLayout="column" fxFlex mdInput placeholder="Altered" [(ngModel)]="model.altered">
         </md-input-container>
       </form>
     </div>
   </div>
 </div>
+-->

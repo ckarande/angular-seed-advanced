@@ -1,4 +1,4 @@
-import {TitleCategoryComponent} from './titlecategory.component';
+import {TitleCategoryComponent} from './titleCategory.component';
 
 export const TitleCategoryRoutes: Array<any> = [
   {

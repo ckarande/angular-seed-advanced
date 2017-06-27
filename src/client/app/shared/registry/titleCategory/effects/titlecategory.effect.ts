@@ -35,7 +35,7 @@ export class TitleCategoryEffects {
   // @Effect() filter$: Observable<Action> = this.actions$
   //   .ofType(actions.TitleCategoryActionTypes.FILTER_TITLECATEGORIES)
   //   .map(toPayload)
-  //   .switchMap((query) => this.titlecategoryService.getTitleCategories(query))
+  //   .switchMap((query) => this.titleCategoryService.getTitleCategories(query))
   //   .map(titlecategories => {
   //     return new actions.InitializeTitleCategoriesActionInternal(titlecategories);
   //   })

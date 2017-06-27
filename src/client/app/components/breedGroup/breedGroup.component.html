@@ -1,17 +1,19 @@
-<div fxLayout="row" fxFlex >
+<h1>Future home of Breed Groups!</h1>
+
+<!--<div fxLayout="row" fxFlex >
   <div fxLayout="column">
     <div fxLayout="row">
       <div fxLayout="column">
         <div fxLayout="row">
-          <form id="BreedGroupForm">
+          <form id="EventForm">
             <md-input-container fxLayout="row">
-              <input fxLayout="column"fxFlex="350px;" mdInput placeholder="Enter any part of a breedGroup's registered name" [formControl]="breedGroupNameCtrl">
+              <input fxLayout="column"fxFlex="350px;" mdInput placeholder="Enter any part of a event categroy name" [formControl]="eventCategoryNameCtrl">
             </md-input-container>
-            <md-list class="breedGroup-list" fxLayout="column" fxFlex>
-              <md-list-item fxFlex *ngFor="let breedGroup of (filteredBreedGroups$ | async)" (click)="handleListClicked(breedGroup)">
-                <i md-list-avatar class="fa" [ngClass]="{'fa-venus': breedGroup.sex == 'female', 'fa-mars': breedGroup.sex == 'male' }" aria-hidden="true"></i>
-                <h4 md-line>{{breedGroup.name}}</h4>
-                <p md-line> {{breedGroup.color}}</p>
+            <md-list class="eventCategory-list" fxLayout="column" fxFlex>
+              <md-list-item fxFlex *ngFor="let eventCategory of (filteredEvents$ | async)" (click)="handleListClicked(eventCategory)">
+                <i md-list-avatar class="fa" [ngClass]="{'fa-venus': eventCategory.sex == 'female', 'fa-mars': eventCategory.sex == 'male' }" aria-hidden="true"></i>
+                <h4 md-line>{{eventCategory.name}}</h4>
+                <p md-line> {{eventCategory.color}}</p>
               </md-list-item>
             </md-list>
           </form>
@@ -21,7 +23,7 @@
   </div>
   <div fxLayout="column" fxFlex>
     <div fxLayout="row" fxFlex fxFlexAlign="center" *ngIf="model">
-      <form novalidate id="BreedGroupInfoForm">
+      <form novalidate id="EventInfoForm">
         <md-input-container fxLayout="row">
           <input name="name"  type="text" fxLayout="column" fxFlex mdInput placeholder="Registered Name" [(ngModel)]="model.name" >
         </md-input-container>
@@ -38,3 +40,4 @@
     </div>
   </div>
 </div>
+-->

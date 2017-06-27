@@ -35,7 +35,7 @@ export class EventCategoryEffects {
   // @Effect() filter$: Observable<Action> = this.actions$
   //   .ofType(actions.EventCategoryActionTypes.FILTER_EVENTCATEGORIES)
   //   .map(toPayload)
-  //   .switchMap((query) => this.eventcategoryService.getEventCategories(query))
+  //   .switchMap((query) => this.eventCategoryService.getEventCategories(query))
   //   .map(eventcategories => {
   //     return new actions.InitializeEventCategoriesActionInternal(eventcategories);
   //   })

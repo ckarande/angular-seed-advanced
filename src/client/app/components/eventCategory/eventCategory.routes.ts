@@ -1,4 +1,4 @@
-import {EventCategoryComponent} from './eventcategory.component';
+import {EventCategoryComponent} from './eventCategory.component';
 
 export const EventCategoryRoutes: Array<any> = [
   {
