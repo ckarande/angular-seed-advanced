@@ -2,8 +2,10 @@ import { Observable } from 'rxjs/Observable';
 import { IEntityManager, EntityManager } from '../common/states/index';
 import * as Dogs from '../dog/states/index';
 import * as Organizations from '../organization/states/index';
-import * as TitleCategories from '../titlecategory/states/index';
 import * as Titles from '../title/states/index';
+import * as TitleCategories from '../titleCategory/states/index';
+import * as Events from '../event/states/index';
+import * as EventCategories from '../eventCategory/states/index';
 import * as Breeds from '../breed/states/index';
 import * as BreedGroups from '../breedGroup/states/index';
 import * as MemberClubs from '../memberClub/states/index';
@@ -25,6 +27,12 @@ export interface IRegistryState {
 
   titleManager: IEntityManager<Titles.ITitleState>;
   titleFilter: string;
+
+  eventCategoryManager: IEntityManager<EventCategories.IEventCategoryState>;
+  eventCategoryFilter: string;
+
+  eventManager: IEntityManager<Events.IEventState>;
+  eventFilter: string;
 
   breedManager: IEntityManager<Breeds.IBreedState>;
   breedFilter: string;
@@ -48,6 +56,12 @@ export const initialState: IRegistryState = {
 
   titleManager: Titles.titlesInitialState,
   titleFilter: '',
+
+  eventCategoryManager: EventCategories.eventCategoriesInitialState,
+  eventCategoryFilter: '',
+
+  eventManager: Events.eventsInitialState,
+  eventFilter: '',
 
   breedManager: Breeds.breedsInitialState,
   breedFilter: '',

@@ -1,7 +1,7 @@
-import { OrganizationService } from './memberClub.service';
+import { MemberClubService } from './memberClub.service';
 
 export const MEMBERCLUB_PROVIDERS: any[] = [
-  OrganizationService
+  MemberClubService
 ];
 
 export * from './memberClub.service';

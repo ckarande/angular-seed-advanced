@@ -12,13 +12,21 @@ import { IOrganizationManager } from '../organization/states/index';
 import { organizationManagerReducer, organizationFilterReducer } from '../organization/reducers/index';
 import { __getOrganizationList, __getSelectedOrganization } from '../organization/reducers/index';
 
-import { ITitleCategoryManager } from '../titlecategory/states/index';
-import { titleCategoryManagerReducer, titleCategoryFilterReducer } from '../titlecategory/reducers/index';
-import { __getTitleCategoryList, __getSelectedTitleCategory } from '../titlecategory/reducers/index';
+import { ITitleCategoryManager } from '../titleCategory/states/index';
+import { titleCategoryManagerReducer, titleCategoryFilterReducer } from '../titleCategory/reducers/index';
+import { __getTitleCategoryList, __getSelectedTitleCategory } from '../titleCategory/reducers/index';
 
 import { ITitleManager } from '../title/states/index';
 import { titleManagerReducer, titleFilterReducer } from '../title/reducers/index';
 import { __getTitleList, __getSelectedTitle } from '../title/reducers/index';
+
+import { IEventCategoryManager } from '../eventCategory/states/index';
+import { eventCategoryManagerReducer, eventCategoryFilterReducer } from '../eventCategory/reducers/index';
+import { __getEventCategoryList, __getSelectedEventCategory } from '../eventCategory/reducers/index';
+
+import { IEventManager } from '../event/states/index';
+import { eventManagerReducer, eventFilterReducer } from '../event/reducers/index';
+import { __getEventList, __getSelectedEvent } from '../event/reducers/index';
 
 import { IBreedManager } from '../breed/states/index';
 import { breedManagerReducer, breedFilterReducer } from '../breed/reducers/index';
@@ -73,6 +81,23 @@ export const _getSelectedTitle = compose(__getSelectedTitle, getTitleManager);
 
 export const _getTitleList = compose(__getTitleList, getTitleManager);
 
+
+export function getEventCategoryManager(stream: Observable<IRegistryState>): Observable<IEventCategoryManager> {return stream.select(registryInstance => registryInstance.eventCategoryManager);}
+
+export function getEventCategoryFilter(stream: Observable<IRegistryState>): Observable<string> {return stream.select(registryInstance => registryInstance.eventCategoryFilter);}
+
+export const _getSelectedEventCategory = compose(__getSelectedTitleCategory, getEventCategoryManager);
+
+export const _getEventCategoryList = compose(__getTitleCategoryList, getEventCategoryManager);
+
+
+export function getEventManager(stream: Observable<IRegistryState>): Observable<IEventManager> {return stream.select(registryInstance => registryInstance.eventManager);}
+
+export function getEventFilter(stream: Observable<IRegistryState>): Observable<string> {return stream.select(registryInstance => registryInstance.eventFilter);}
+
+export const _getSelectedEvent = compose(__getSelectedEvent, getEventManager);
+
+export const _getEventList = compose(__getEventList, getEventManager);
 
 export function getBreedManager(stream: Observable<IRegistryState>): Observable<IBreedManager> {return stream.select(registryInstance => registryInstance.breedManager);}
 

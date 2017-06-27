@@ -6,7 +6,7 @@ import 'rxjs/add/operator/startWith';
 
 import { RouterExtensions, Config } from '../../shared/core/index';
 import { IAppState, getEventCategories, getEventCategoryFilter, getSelectedEventCategory } from '../../shared/ngrx/index';
-import { IEventCategoryState, EventCategory, EventCategoryActionTypes } from '../../shared/registry/eventcategory/index';
+import { IEventCategoryState, EventCategory, EventCategoryActionTypes } from '../../shared/registry/eventCategory/index';
 
 @Component({
   moduleId: module.id,
