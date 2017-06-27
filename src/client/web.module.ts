@@ -32,7 +32,13 @@ import { MultilingualEffects } from './app/shared/i18n/index';
 import { SampleModule } from './app/shared/sample/sample.module';
 import { NameListEffects } from './app/shared/sample/index';
 import { RegistryModule } from './app/shared/registry/registry.module';
-import { DogEffects } from './app/shared/registry/index';
+import { DogEffects, 
+         OrganizationEffects, 
+         TitleCategoryEffects, 
+         TitleEffects, 
+         BreedEffects, 
+         BreedGroupEffects, 
+         MemberClubEffects } from './app/shared/registry/index';
 
 // config
 import { Config, WindowService, ConsoleService } from './app/shared/core/index';
@@ -100,7 +106,13 @@ if (String('<%= BUILD_TYPE %>') === 'dev') {
     DEV_IMPORTS,
     EffectsModule.run(MultilingualEffects),
     EffectsModule.run(NameListEffects),
-    EffectsModule.run(DogEffects)
+    EffectsModule.run(DogEffects),
+    EffectsModule.run(OrganizationEffects),
+    EffectsModule.run(TitleCategoryEffects),
+    EffectsModule.run(TitleEffects),
+    EffectsModule.run(BreedEffects),
+    EffectsModule.run(BreedGroupEffects),
+    EffectsModule.run(MemberClubEffects)
   ],
   exports: [
     MaterialModule,

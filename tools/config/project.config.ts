@@ -109,7 +109,7 @@ export class ProjectConfig extends SeedAdvancedConfig {
         //this.API_SERVER = `http://${envType}.api.udcregistry.com`;
         break;
     }
-    
+
   }
 
 }
